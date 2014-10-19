@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8C805DCC-9844-4C1F-88CC-6B93AA4EDA20</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Mumble</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7065BA32BDA472BFA5E3CDC4311D602EABCC3A80</key>
+		<string>https://github.com/tun57/Mumble.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iOS/Mumble/Mumble.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7065BA32BDA472BFA5E3CDC4311D602EABCC3A80</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tun57/Mumble.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7065BA32BDA472BFA5E3CDC4311D602EABCC3A80</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7065BA32BDA472BFA5E3CDC4311D602EABCC3A80</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Mumble</string>
+		</dict>
+	</array>
+</dict>
+</plist>
