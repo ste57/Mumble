@@ -7,17 +7,69 @@
 //
 
 #import "AppDelegate.h"
+#import <Parse/Parse.h>
+#import "HomeTab.h"
 
-@interface AppDelegate ()
+#define NAV_BAR_COLOUR [UIColor colorWithRed:0.03 green:0.46 blue:0.58 alpha:1.0]
 
-@end
-
-@implementation AppDelegate
-
+@implementation AppDelegate {
+    
+    HomeTab *home;
+    
+    UITabBarController *tabBar;
+    NSMutableArray *tabArray;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    [Parse setApplicationId:@"MRakBf8O2WvDEhrv8IHovUEVfbuZeT76XHmOUTQ2"
+                  clientKey:@"ii47uvS0KLLkqmBgzzXkGZPw2FBAZejQj92ENKZH"];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    tabBar = [[UITabBarController alloc] init];
+    tabArray = [[NSMutableArray alloc] init];
+    
+    // Add Tabs
+    
+    [self addHomeTab];
+    
+    // Add Tab To Main Window
+    
+    tabBar.viewControllers = tabArray;
+    
+    //[[UITabBar appearance] setBarTintColor:NAV_BAR_COLOUR];
+    
+    //[[UITabBar appearance] setTintColor:ICON_SELECT_COLOUR];
+    
+    // Set Start View
+    
+    [self.window setRootViewController:tabBar];
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
+}
+
+- (void) addHomeTab {
+    
+    home = [[HomeTab alloc] init];
+    [self addNavigationBar:home];
+}
+
+- (void) addNavigationBar:(UIViewController*)view {
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:view];
+    
+    navController.navigationBar.barTintColor = NAV_BAR_COLOUR;
+    navController.navigationBar.tintColor = [UIColor whiteColor];
+    navController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    [tabArray addObject:navController];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

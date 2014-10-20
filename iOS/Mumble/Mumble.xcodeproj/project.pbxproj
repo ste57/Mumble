@@ -7,13 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4B822719F2C82A0095D419 /* HomeTab.m */; };
+		DC578C4719F30E20003747AB /* Mumble.m in Sources */ = {isa = PBXBuildFile; fileRef = DC578C4619F30E20003747AB /* Mumble.m */; };
+		DC609F8119F2C0C700FF96BD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F7E19F2C0C700FF96BD /* Bolts.framework */; };
+		DC609F8219F2C0C700FF96BD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F7F19F2C0C700FF96BD /* Parse.framework */; };
+		DC609F8319F2C0C700FF96BD /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8019F2C0C700FF96BD /* ParseFacebookUtils.framework */; };
+		DC609F8519F2C15B00FF96BD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8419F2C15B00FF96BD /* Accounts.framework */; };
+		DC609F8719F2C16400FF96BD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8619F2C16400FF96BD /* AudioToolbox.framework */; };
+		DC609F8919F2C16C00FF96BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8819F2C16C00FF96BD /* CFNetwork.framework */; };
+		DC609F8B19F2C17600FF96BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8A19F2C17600FF96BD /* CoreGraphics.framework */; };
+		DC609F8D19F2C17F00FF96BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8C19F2C17F00FF96BD /* CoreLocation.framework */; };
+		DC609F8F19F2C18900FF96BD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F8E19F2C18900FF96BD /* libz.dylib */; };
+		DC609F9119F2C19100FF96BD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9019F2C19100FF96BD /* MobileCoreServices.framework */; };
+		DC609F9319F2C19D00FF96BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9219F2C19D00FF96BD /* QuartzCore.framework */; };
+		DC609F9519F2C1A800FF96BD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9419F2C1A800FF96BD /* Security.framework */; };
+		DC609F9719F2C1AD00FF96BD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9619F2C1AD00FF96BD /* Social.framework */; };
+		DC609F9919F2C1BF00FF96BD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9819F2C1BF00FF96BD /* StoreKit.framework */; };
+		DC609F9B19F2C1C700FF96BD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC609F9A19F2C1C700FF96BD /* SystemConfiguration.framework */; };
+		DC6E813319F2F9E500E084AC /* HomeCustomTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6E813219F2F9E500E084AC /* HomeCustomTBCell.m */; };
 		DC838F2A19F29BD10077E010 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F2919F29BD10077E010 /* main.m */; };
 		DC838F2D19F29BD10077E010 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F2C19F29BD10077E010 /* AppDelegate.m */; };
-		DC838F3019F29BD10077E010 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F2F19F29BD10077E010 /* ViewController.m */; };
-		DC838F3319F29BD10077E010 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC838F3119F29BD10077E010 /* Main.storyboard */; };
-		DC838F3519F29BD10077E010 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC838F3419F29BD10077E010 /* Images.xcassets */; };
-		DC838F3819F29BD10077E010 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC838F3619F29BD10077E010 /* LaunchScreen.xib */; };
 		DC838F4419F29BD20077E010 /* MumbleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F4319F29BD20077E010 /* MumbleTests.m */; };
+		DCDB4A4419F2E1350088FB7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDB4A4319F2E1350088FB7D /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +42,37 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC4B822619F2C82A0095D419 /* HomeTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTab.h; sourceTree = "<group>"; };
+		DC4B822719F2C82A0095D419 /* HomeTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTab.m; sourceTree = "<group>"; };
+		DC578C4519F30E20003747AB /* Mumble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mumble.h; sourceTree = "<group>"; };
+		DC578C4619F30E20003747AB /* Mumble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mumble.m; sourceTree = "<group>"; };
+		DC609F7E19F2C0C700FF96BD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		DC609F7F19F2C0C700FF96BD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		DC609F8019F2C0C700FF96BD /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		DC609F8419F2C15B00FF96BD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		DC609F8619F2C16400FF96BD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DC609F8819F2C16C00FF96BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DC609F8A19F2C17600FF96BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DC609F8C19F2C17F00FF96BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DC609F8E19F2C18900FF96BD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		DC609F9019F2C19100FF96BD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DC609F9219F2C19D00FF96BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DC609F9419F2C1A800FF96BD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DC609F9619F2C1AD00FF96BD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DC609F9819F2C1BF00FF96BD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DC609F9A19F2C1C700FF96BD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DC6E813119F2F9E500E084AC /* HomeCustomTBCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCustomTBCell.h; sourceTree = "<group>"; };
+		DC6E813219F2F9E500E084AC /* HomeCustomTBCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCustomTBCell.m; sourceTree = "<group>"; };
+		DC6E813419F2FB4300E084AC /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		DC838F2419F29BD10077E010 /* Mumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC838F2819F29BD10077E010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC838F2919F29BD10077E010 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DC838F2B19F29BD10077E010 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DC838F2C19F29BD10077E010 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DC838F2E19F29BD10077E010 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DC838F2F19F29BD10077E010 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		DC838F3219F29BD10077E010 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DC838F3419F29BD10077E010 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DC838F3719F29BD10077E010 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DC838F3D19F29BD20077E010 /* MumbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MumbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC838F4219F29BD20077E010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC838F4319F29BD20077E010 /* MumbleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MumbleTests.m; sourceTree = "<group>"; };
+		DCDB4A4319F2E1350088FB7D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +80,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC609F9B19F2C1C700FF96BD /* SystemConfiguration.framework in Frameworks */,
+				DC609F9919F2C1BF00FF96BD /* StoreKit.framework in Frameworks */,
+				DC609F9719F2C1AD00FF96BD /* Social.framework in Frameworks */,
+				DC609F9519F2C1A800FF96BD /* Security.framework in Frameworks */,
+				DC609F9319F2C19D00FF96BD /* QuartzCore.framework in Frameworks */,
+				DC609F9119F2C19100FF96BD /* MobileCoreServices.framework in Frameworks */,
+				DC609F8F19F2C18900FF96BD /* libz.dylib in Frameworks */,
+				DC609F8D19F2C17F00FF96BD /* CoreLocation.framework in Frameworks */,
+				DC609F8B19F2C17600FF96BD /* CoreGraphics.framework in Frameworks */,
+				DC609F8919F2C16C00FF96BD /* CFNetwork.framework in Frameworks */,
+				DC609F8719F2C16400FF96BD /* AudioToolbox.framework in Frameworks */,
+				DC609F8519F2C15B00FF96BD /* Accounts.framework in Frameworks */,
+				DC609F8219F2C0C700FF96BD /* Parse.framework in Frameworks */,
+				DC609F8119F2C0C700FF96BD /* Bolts.framework in Frameworks */,
+				DC609F8319F2C0C700FF96BD /* ParseFacebookUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +108,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC4B822519F2C7B10095D419 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DC4B822619F2C82A0095D419 /* HomeTab.h */,
+				DC4B822719F2C82A0095D419 /* HomeTab.m */,
+				DC6E813119F2F9E500E084AC /* HomeCustomTBCell.h */,
+				DC6E813219F2F9E500E084AC /* HomeCustomTBCell.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		DC578C4419F30D05003747AB /* Mumbles */ = {
+			isa = PBXGroup;
+			children = (
+				DC578C4519F30E20003747AB /* Mumble.h */,
+				DC578C4619F30E20003747AB /* Mumble.m */,
+			);
+			name = Mumbles;
+			sourceTree = "<group>";
+		};
+		DC609F7D19F2C0C700FF96BD /* Parse */ = {
+			isa = PBXGroup;
+			children = (
+				DC609F7E19F2C0C700FF96BD /* Bolts.framework */,
+				DC609F7F19F2C0C700FF96BD /* Parse.framework */,
+				DC609F8019F2C0C700FF96BD /* ParseFacebookUtils.framework */,
+			);
+			path = Parse;
+			sourceTree = "<group>";
+		};
 		DC838F1B19F29BD10077E010 = {
 			isa = PBXGroup;
 			children = (
@@ -81,13 +159,11 @@
 		DC838F2619F29BD10077E010 /* Mumble */ = {
 			isa = PBXGroup;
 			children = (
-				DC838F2B19F29BD10077E010 /* AppDelegate.h */,
-				DC838F2C19F29BD10077E010 /* AppDelegate.m */,
-				DC838F2E19F29BD10077E010 /* ViewController.h */,
-				DC838F2F19F29BD10077E010 /* ViewController.m */,
-				DC838F3119F29BD10077E010 /* Main.storyboard */,
-				DC838F3419F29BD10077E010 /* Images.xcassets */,
-				DC838F3619F29BD10077E010 /* LaunchScreen.xib */,
+				DC6E813419F2FB4300E084AC /* Config.h */,
+				DC838F4D19F2A23D0077E010 /* App Delegate */,
+				DC4B822519F2C7B10095D419 /* Home */,
+				DC578C4419F30D05003747AB /* Mumbles */,
+				DCDB4A4319F2E1350088FB7D /* Images.xcassets */,
 				DC838F2719F29BD10077E010 /* Supporting Files */,
 			);
 			path = Mumble;
@@ -96,6 +172,19 @@
 		DC838F2719F29BD10077E010 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DC609F9A19F2C1C700FF96BD /* SystemConfiguration.framework */,
+				DC609F9819F2C1BF00FF96BD /* StoreKit.framework */,
+				DC609F9619F2C1AD00FF96BD /* Social.framework */,
+				DC609F9419F2C1A800FF96BD /* Security.framework */,
+				DC609F9219F2C19D00FF96BD /* QuartzCore.framework */,
+				DC609F9019F2C19100FF96BD /* MobileCoreServices.framework */,
+				DC609F8E19F2C18900FF96BD /* libz.dylib */,
+				DC609F8C19F2C17F00FF96BD /* CoreLocation.framework */,
+				DC609F8A19F2C17600FF96BD /* CoreGraphics.framework */,
+				DC609F8819F2C16C00FF96BD /* CFNetwork.framework */,
+				DC609F8619F2C16400FF96BD /* AudioToolbox.framework */,
+				DC609F8419F2C15B00FF96BD /* Accounts.framework */,
+				DC609F7D19F2C0C700FF96BD /* Parse */,
 				DC838F2819F29BD10077E010 /* Info.plist */,
 				DC838F2919F29BD10077E010 /* main.m */,
 			);
@@ -117,6 +206,15 @@
 				DC838F4219F29BD20077E010 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC838F4D19F2A23D0077E010 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				DC838F2B19F29BD10077E010 /* AppDelegate.h */,
+				DC838F2C19F29BD10077E010 /* AppDelegate.m */,
+			);
+			name = "App Delegate";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +266,7 @@
 				TargetAttributes = {
 					DC838F2319F29BD10077E010 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 49MJRZBUY4;
 					};
 					DC838F3C19F29BD20077E010 = {
 						CreatedOnToolsVersion = 6.0;
@@ -199,9 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC838F3319F29BD10077E010 /* Main.storyboard in Resources */,
-				DC838F3819F29BD10077E010 /* LaunchScreen.xib in Resources */,
-				DC838F3519F29BD10077E010 /* Images.xcassets in Resources */,
+				DCDB4A4419F2E1350088FB7D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,9 +316,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC838F3019F29BD10077E010 /* ViewController.m in Sources */,
 				DC838F2D19F29BD10077E010 /* AppDelegate.m in Sources */,
 				DC838F2A19F29BD10077E010 /* main.m in Sources */,
+				DC578C4719F30E20003747AB /* Mumble.m in Sources */,
+				DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */,
+				DC6E813319F2F9E500E084AC /* HomeCustomTBCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,25 +341,6 @@
 			targetProxy = DC838F3E19F29BD20077E010 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		DC838F3119F29BD10077E010 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC838F3219F29BD10077E010 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		DC838F3619F29BD10077E010 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC838F3719F29BD10077E010 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DC838F4519F29BD20077E010 /* Debug */ = {
@@ -297,7 +377,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -332,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -343,9 +423,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Mumble/Parse",
+				);
 				INFOPLIST_FILE = Mumble/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -353,9 +443,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Mumble/Parse",
+				);
 				INFOPLIST_FILE = Mumble/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -366,6 +466,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/MumbleTests/Parse",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -385,6 +486,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/MumbleTests/Parse",
 				);
 				INFOPLIST_FILE = MumbleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -412,6 +514,7 @@
 				DC838F4919F29BD20077E010 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC838F4A19F29BD20077E010 /* Build configuration list for PBXNativeTarget "MumbleTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +523,7 @@
 				DC838F4C19F29BD20077E010 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
