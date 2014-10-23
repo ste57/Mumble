@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UITabBarController+hidable.h"
 
-@interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end
