@@ -125,11 +125,11 @@
 
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15-[content]-15-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[timeIcon]-5-[timeLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon]-5-[commentsLabel]-20-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon]-5-[commentsLabel]-28-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
 
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartImg attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartImg attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:-5.0]];
 
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:20.0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:12.0]];
 
     // Vertical Constriants
 

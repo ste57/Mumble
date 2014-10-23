@@ -39,23 +39,17 @@
     UITableView *tableView;
     
     UIRefreshControl *refreshControl;
-
+    
     CGFloat startContentOffset;
     CGFloat lastContentOffset;
+
     BOOL hidden;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void) viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    
-    //[self followScrollView:tableView];
 }
-
-/*- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self showNavBarAnimated:NO];
-}*/
 
 - (void) viewDidLoad {
     
@@ -251,7 +245,6 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     startContentOffset = lastContentOffset = scrollView.contentOffset.y;
-    //NSLog(@"scrollViewWillBeginDragging: %f", scrollView.contentOffset.y);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

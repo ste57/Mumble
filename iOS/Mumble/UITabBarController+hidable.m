@@ -33,7 +33,6 @@
 
 - (void)setTabBarHidden:(BOOL)hidden animated:(BOOL)animated
 {
-    NSLog(@"setTabBarHidden:%hhd animated:%hhd", hidden, animated);
     
 	if ( [self.view.subviews count] < 2 )
 		return;
@@ -50,8 +49,6 @@
     {
         if(animated)
         {
-            NSLog(@"HIDDEN - ANIMATED");
-            
             [UIView animateWithDuration:0.2
                              animations:^{
                                  contentView.frame = self.view.bounds;
@@ -70,8 +67,6 @@
         }
         else
         {
-            NSLog(@"HIDDEN");
-            
             contentView.frame = self.view.bounds;
             
             self.tabBar.frame = CGRectMake(self.view.bounds.origin.x,
@@ -88,7 +83,6 @@
                                        0);
         if(animated)
         {
-            NSLog(@"NOT HIDDEN - ANIMATED");
             [UIView animateWithDuration:0.2
                              animations:^{
                                  self.tabBar.frame = CGRectMake(self.view.bounds.origin.x,
@@ -104,7 +98,6 @@
         }
         else
         {
-            NSLog(@"NOT HIDDEN");
             contentView.frame = CGRectMake(self.view.bounds.origin.x,
                                            self.view.bounds.origin.y,
                                            self.view.bounds.size.width,
