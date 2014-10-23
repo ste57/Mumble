@@ -9,8 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "HomeTab.h"
-
-#define NAV_BAR_COLOUR [UIColor colorWithRed:0.03 green:0.46 blue:0.58 alpha:1.0]
+#import "Config.h"
 
 @implementation AppDelegate {
     
@@ -42,9 +41,9 @@
     
     tabBar.viewControllers = tabArray;
     
-    //[[UITabBar appearance] setBarTintColor:NAV_BAR_COLOUR];
+    [[UITabBar appearance] setBarTintColor:NAV_BAR_COLOUR];
     
-    //[[UITabBar appearance] setTintColor:ICON_SELECT_COLOUR];
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     
     // Set Start View
     

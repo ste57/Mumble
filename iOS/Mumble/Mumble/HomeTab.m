@@ -47,7 +47,9 @@
 - (void) retrieveMumbleData {
     
     PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
-
+    
+    [query orderByDescending:@"createdAt"];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
@@ -62,9 +64,21 @@
                 
                 mumble.objectId = object.objectId;
                 mumble.content = object[MUMBLE_DATA_CLASS_CONTENT];
+                mumble.msgLocation = object[MUMBLE_DATA_MSG_LOCATION];
                 
+                /////// calculate mumble height
                 
-                // Date/Time
+                NSString *text = [NSString stringWithFormat:@"%@ %@", mumble.content, mumble.msgLocation];
+                
+                CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
+                
+                CGSize size = [text sizeWithFont:MUMBLE_CONTENT_TEXT_FONT constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+                
+                mumble.cellHeight = HOME_TBCELL_DEFAULT_HEIGHT + size.height;
+                
+                ///////
+                
+                //// Date/Time
                 
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                 
@@ -79,28 +93,25 @@
 
                 if (hours < 24) {
                     
-                    if (hours < 1) {
+                    if (hours < 2) {
                         
-                        mumble.createdAt = [NSString stringWithFormat:@"%im", minutes];
+                        mumble.createdAt = [NSString stringWithFormat:@"%im ago", minutes - 60];
                         
                     } else {
                         
-                        mumble.createdAt = [NSString stringWithFormat:@"%ih", hours];
+                        mumble.createdAt = [NSString stringWithFormat:@"%ih ago", hours];
                     }
                     
                 } else if (days < 7) {
 
-                    mumble.createdAt = [NSString stringWithFormat:@"%id", days];
+                    mumble.createdAt = [NSString stringWithFormat:@"%id ago", days];
                     
                 } else {
                     
-                   mumble.createdAt = [NSString stringWithFormat:@"%iw", weeks];
+                   mumble.createdAt = [NSString stringWithFormat:@"%iw ago", weeks];
                 }
                 
                 ///////
-                
-                
-                mumble.msgLocation = object[MUMBLE_DATA_MSG_LOCATION];
                 
                 [Mumbles addObject:mumble];
             }
@@ -126,8 +137,6 @@
     CGRect window = [[UIScreen mainScreen] bounds];
 
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height) style:UITableViewStylePlain];
-    
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     tableView.delegate = self;
     
@@ -172,9 +181,7 @@
     Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
     
     HomeCustomTBCell *cell = [[HomeCustomTBCell alloc] initWithFrame:CGRectZero];
-    
-    mumble.cellHeight = [self getMumbleCellHeight:indexPath.row];
-    
+
     cell.mumble = mumble;
     
     [cell createLabels];
@@ -184,17 +191,6 @@
     }
     
     return cell;
-}
-
-- (double) getMumbleCellHeight:(int)index {
-    
-    NSString *text = [[Mumbles objectAtIndex:index] valueForKey:MUMBLE_DATA_CLASS_CONTENT];
-    
-    CGSize constraint = CGSizeMake(self.view.frame.size.width - (CELL_PADDING * 4), 20000.0f);
-    
-    CGSize size = [text sizeWithFont:MUMBLE_CONTENT_TEXT_FONT constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    
-    return HOME_TBCELL_DEFAULT_HEIGHT + size.height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -219,7 +215,7 @@
     [self.navigationItem setBackBarButtonItem:backButtonItem];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
 }
