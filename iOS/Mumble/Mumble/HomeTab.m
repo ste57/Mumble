@@ -64,6 +64,15 @@
     [self createTableView];
     
     [self retrieveMumbleData];
+
+    UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
+    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
+    top.backgroundColor = [UIColor colorWithRed:0.925 green:0.588 blue:0.220 alpha:1];
+    [currentWindow addSubview:top];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void) retrieveMumbleData {
