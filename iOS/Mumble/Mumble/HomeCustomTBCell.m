@@ -15,12 +15,12 @@
 
 - (void) createLabels {
     
-    UITextView *contentLabel = [[UITextView alloc] init];
-    contentLabel.textAlignment = NSTextAlignmentLeft;
-    contentLabel.textColor = [UIColor blackColor];
-    contentLabel.frame = CGRectMake(CELL_PADDING, CELL_PADDING/2, [[UIScreen mainScreen] bounds].size.width - CELL_PADDING*2, mumble.cellHeight);
-    contentLabel.editable = NO;
-    contentLabel.selectable = NO;
+    UITextView *contentTextView = [[UITextView alloc] init];
+    contentTextView.textAlignment = NSTextAlignmentLeft;
+    contentTextView.textColor = [UIColor blackColor];
+    //contentTextView.frame = CGRectMake(CELL_PADDING, CELL_PADDING/2, [[UIScreen mainScreen] bounds].size.width - CELL_PADDING*2, mumble.cellHeight);
+    contentTextView.editable = NO;
+    contentTextView.selectable = NO;
     
     NSString *text = [NSString stringWithFormat:@"%@ %@", mumble.content, mumble.msgLocation];
     
@@ -36,64 +36,112 @@
             [string addAttribute:NSForegroundColorAttributeName value:NAV_BAR_COLOUR range:range];
         }
     }
-    
-    [contentLabel setAttributedText:string];
+    NSLog(@"%@", string);
+    [contentTextView setAttributedText:string];
 
-    contentLabel.font = MUMBLE_CONTENT_TEXT_FONT;
-    
-    [self.contentView addSubview:contentLabel];
+    contentTextView.font = MUMBLE_CONTENT_TEXT_FONT;
+
+    [contentTextView setTranslatesAutoresizingMaskIntoConstraints:false];
+    [self.contentView addSubview:contentTextView];
     
     
     UIImageView *timeImg = [[UIImageView alloc] init];
     timeImg.image = [UIImage imageNamed:@"clock"];
-    timeImg.layer.anchorPoint = CGPointMake(0, -1.0);
-    timeImg.frame = CGRectMake(CELL_PADDING + timeImg.image.size.width/2, mumble.cellHeight - CELL_PADDING*1.50, 8, 8);
-    
+    //timeImg.layer.anchorPoint = CGPointMake(0, -1.0);
+    //timeImg.frame = CGRectMake(CELL_PADDING + timeImg.image.size.width/2, mumble.cellHeight - CELL_PADDING*1.50, 8, 8);
+
+    [timeImg setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:timeImg];
     
     
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.textAlignment = NSTextAlignmentLeft;
-    timeLabel.frame = CGRectMake(timeImg.center.x + timeImg.image.size.width, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
+    //timeLabel.frame = CGRectMake(timeImg.center.x + timeImg.image.size.width, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
     timeLabel.text = mumble.createdAt;
     timeLabel.font = HOME_TIME_FONT;
     timeLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
-    
+
+    [timeLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:timeLabel];
 
     
     UIImageView *heartImg = [[UIImageView alloc] init];
     heartImg.image = [UIImage imageNamed:@"heart"];
-    heartImg.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - heartImg.image.size.width/2, timeImg.center.y + heartImg.image.size.height/6, 15, 15);
-    
+    //heartImg.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 - heartImg.image.size.width/2, timeImg.center.y + heartImg.image.size.height/6, 15, 15);
+
+    [heartImg setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:heartImg];
     
     
     UILabel *heartLabel = [[UILabel alloc] init];
     heartLabel.textAlignment = NSTextAlignmentLeft;
-    heartLabel.frame = CGRectMake(heartImg.center.x + heartImg.image.size.width/2, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
+    //heartLabel.frame = CGRectMake(heartImg.center.x + heartImg.image.size.width/2, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
     heartLabel.text = @"10";
     heartLabel.font = HOME_TIME_FONT;
     heartLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
-    
+
+    [heartLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:heartLabel];
     
     
     UIImageView *commentImg = [[UIImageView alloc] init];
     commentImg.image = [UIImage imageNamed:@"commentIcon"];
-    commentImg.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, timeImg.center.y + heartImg.image.size.height/6, 16, 16);
-    
+    //commentImg.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width - 50, timeImg.center.y + heartImg.image.size.height/6, 16, 16);
+
+    [commentImg setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:commentImg];
     
     
     UILabel *commentsLabel = [[UILabel alloc] init];
     commentsLabel.textAlignment = NSTextAlignmentLeft;
-    commentsLabel.frame = CGRectMake(commentImg.frame.origin.x + 20, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
+    //commentsLabel.frame = CGRectMake(commentImg.frame.origin.x + 20, timeImg.center.y, 100, HOME_TBCELL_DEFAULT_HEIGHT/2);
     commentsLabel.text = @"5";
     commentsLabel.font = HOME_TIME_FONT;
     commentsLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
-    
+
+    [commentsLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:commentsLabel];
+
+    NSDictionary *views = @{@"content": contentTextView,
+                            @"timeIcon": timeImg,
+                            @"timeLabel": timeLabel,
+                            @"heartIcon": heartImg,
+                            @"heartLabel": heartLabel,
+                            @"commentIcon": commentImg,
+                            @"commentsLabel": commentsLabel };
+
+
+    //NSArray *x = [NSLayoutConstraint constraintsWithVisualFormat:@"|-(margin)-[content]-(margin)-|" options:0 metrics:nil views:views];
+
+    // ImageView Constraints
+
+    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[timeIcon(8)]" options:0 metrics:nil views:views]];
+    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[timeIcon(8)]" options:0 metrics:nil views:views]];
+
+    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[heartIcon(15)]" options:0 metrics:nil views:views]];
+    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[heartIcon(15)]" options:0 metrics:nil views:views]];
+
+    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon(16)]" options:0 metrics:nil views:views]];
+    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentIcon(16)]" options:0 metrics:nil views:views]];
+
+
+    // Horizontal Constraints
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15-[content]-15-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[timeIcon]-5-[timeLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon]-5-[commentsLabel]-20-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartImg attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:20.0]];
+
+    // Vertical Constriants
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content]-10-[timeLabel]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content]-10-[commentsLabel]-|" options:0 metrics:nil views:views]];
+
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content]-10-[heartIcon]-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content]-10-[heartLabel]-|" options:0 metrics:nil views:views]];
 }
 
 @end
