@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "HomeTab.h"
 #import "Config.h"
+#import "UIViewController+ScrollingNavbar.h"
 
 @implementation AppDelegate {
     
@@ -45,6 +46,8 @@
     
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     
+    [[UITabBar appearance] setTranslucent:NO];
+    
     // Set Start View
     
     [self.window setRootViewController:tabBar];
@@ -67,6 +70,8 @@
     navController.navigationBar.barTintColor = NAV_BAR_COLOUR;
     navController.navigationBar.tintColor = [UIColor whiteColor];
     navController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    //[navController.navigationBar setTranslucent:NO];
     
     [tabArray addObject:navController];
 }

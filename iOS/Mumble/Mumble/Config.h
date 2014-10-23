@@ -8,9 +8,9 @@
 
 #define CELL_PADDING 15.0
 
-#define HOME_TBCELL_DEFAULT_HEIGHT 54.0
+#define HOME_TBCELL_DEFAULT_HEIGHT 60.0
 
-#define MUMBLE_CONTENT_TEXT_FONT [UIFont fontWithName:@"Avenir" size:14.8]
+#define MUMBLE_CONTENT_TEXT_FONT [UIFont fontWithName:@"Avenir" size:16.0]
 
 #define HOME_TIME_FONT [UIFont fontWithName:@"Avenir-Light" size:12.0]
 

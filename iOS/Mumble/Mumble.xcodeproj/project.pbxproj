@@ -29,6 +29,14 @@
 		DC838F2D19F29BD10077E010 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F2C19F29BD10077E010 /* AppDelegate.m */; };
 		DC838F4419F29BD20077E010 /* MumbleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC838F4319F29BD20077E010 /* MumbleTests.m */; };
 		DCDB4A4419F2E1350088FB7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDB4A4319F2E1350088FB7D /* Images.xcassets */; };
+		DCFA061519F8A25800280342 /* UIViewController+ScrollingNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA061419F8A25800280342 /* UIViewController+ScrollingNavbar.m */; };
+		DCFA063619F8AB7400280342 /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DCFA062719F8AB7400280342 /* DateTools.bundle */; };
+		DCFA063719F8AB7400280342 /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA062B19F8AB7400280342 /* DTError.m */; };
+		DCFA063819F8AB7400280342 /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA062D19F8AB7400280342 /* DTTimePeriod.m */; };
+		DCFA063919F8AB7400280342 /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA062F19F8AB7400280342 /* DTTimePeriodChain.m */; };
+		DCFA063A19F8AB7400280342 /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA063119F8AB7400280342 /* DTTimePeriodCollection.m */; };
+		DCFA063B19F8AB7400280342 /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA063319F8AB7400280342 /* DTTimePeriodGroup.m */; };
+		DCFA063C19F8AB7400280342 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFA063519F8AB7400280342 /* NSDate+DateTools.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +81,23 @@
 		DC838F4219F29BD20077E010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC838F4319F29BD20077E010 /* MumbleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MumbleTests.m; sourceTree = "<group>"; };
 		DCDB4A4319F2E1350088FB7D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
+		DCFA061319F8A25800280342 /* UIViewController+ScrollingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ScrollingNavbar.h"; sourceTree = "<group>"; };
+		DCFA061419F8A25800280342 /* UIViewController+ScrollingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ScrollingNavbar.m"; sourceTree = "<group>"; };
+		DCFA062719F8AB7400280342 /* DateTools.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DateTools.bundle; sourceTree = "<group>"; };
+		DCFA062819F8AB7400280342 /* DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTools.h; sourceTree = "<group>"; };
+		DCFA062919F8AB7400280342 /* DTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTConstants.h; sourceTree = "<group>"; };
+		DCFA062A19F8AB7400280342 /* DTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTError.h; sourceTree = "<group>"; };
+		DCFA062B19F8AB7400280342 /* DTError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTError.m; sourceTree = "<group>"; };
+		DCFA062C19F8AB7400280342 /* DTTimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriod.h; sourceTree = "<group>"; };
+		DCFA062D19F8AB7400280342 /* DTTimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriod.m; sourceTree = "<group>"; };
+		DCFA062E19F8AB7400280342 /* DTTimePeriodChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodChain.h; sourceTree = "<group>"; };
+		DCFA062F19F8AB7400280342 /* DTTimePeriodChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodChain.m; sourceTree = "<group>"; };
+		DCFA063019F8AB7400280342 /* DTTimePeriodCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodCollection.h; sourceTree = "<group>"; };
+		DCFA063119F8AB7400280342 /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodCollection.m; sourceTree = "<group>"; };
+		DCFA063219F8AB7400280342 /* DTTimePeriodGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimePeriodGroup.h; sourceTree = "<group>"; };
+		DCFA063319F8AB7400280342 /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTTimePeriodGroup.m; sourceTree = "<group>"; };
+		DCFA063419F8AB7400280342 /* NSDate+DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateTools.h"; sourceTree = "<group>"; };
+		DCFA063519F8AB7400280342 /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +166,7 @@
 		DC838F1B19F29BD10077E010 = {
 			isa = PBXGroup;
 			children = (
+				DCFA060E19F8992400280342 /* Help Files */,
 				DC838F2619F29BD10077E010 /* Mumble */,
 				DC838F4019F29BD20077E010 /* MumbleTests */,
 				DC838F2519F29BD10077E010 /* Products */,
@@ -215,6 +241,46 @@
 				DC838F2C19F29BD10077E010 /* AppDelegate.m */,
 			);
 			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		DCFA060E19F8992400280342 /* Help Files */ = {
+			isa = PBXGroup;
+			children = (
+				DCFA062619F8AB7400280342 /* DateTools */,
+				DCFA060F19F8994000280342 /* GTScrollNavigationBar */,
+			);
+			name = "Help Files";
+			sourceTree = "<group>";
+		};
+		DCFA060F19F8994000280342 /* GTScrollNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				DCFA061319F8A25800280342 /* UIViewController+ScrollingNavbar.h */,
+				DCFA061419F8A25800280342 /* UIViewController+ScrollingNavbar.m */,
+			);
+			name = GTScrollNavigationBar;
+			sourceTree = "<group>";
+		};
+		DCFA062619F8AB7400280342 /* DateTools */ = {
+			isa = PBXGroup;
+			children = (
+				DCFA062719F8AB7400280342 /* DateTools.bundle */,
+				DCFA062819F8AB7400280342 /* DateTools.h */,
+				DCFA062919F8AB7400280342 /* DTConstants.h */,
+				DCFA062A19F8AB7400280342 /* DTError.h */,
+				DCFA062B19F8AB7400280342 /* DTError.m */,
+				DCFA062C19F8AB7400280342 /* DTTimePeriod.h */,
+				DCFA062D19F8AB7400280342 /* DTTimePeriod.m */,
+				DCFA062E19F8AB7400280342 /* DTTimePeriodChain.h */,
+				DCFA062F19F8AB7400280342 /* DTTimePeriodChain.m */,
+				DCFA063019F8AB7400280342 /* DTTimePeriodCollection.h */,
+				DCFA063119F8AB7400280342 /* DTTimePeriodCollection.m */,
+				DCFA063219F8AB7400280342 /* DTTimePeriodGroup.h */,
+				DCFA063319F8AB7400280342 /* DTTimePeriodGroup.m */,
+				DCFA063419F8AB7400280342 /* NSDate+DateTools.h */,
+				DCFA063519F8AB7400280342 /* NSDate+DateTools.m */,
+			);
+			path = DateTools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCDB4A4419F2E1350088FB7D /* Images.xcassets in Resources */,
+				DCFA063619F8AB7400280342 /* DateTools.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +386,14 @@
 				DC838F2D19F29BD10077E010 /* AppDelegate.m in Sources */,
 				DC838F2A19F29BD10077E010 /* main.m in Sources */,
 				DC578C4719F30E20003747AB /* Mumble.m in Sources */,
+				DCFA063819F8AB7400280342 /* DTTimePeriod.m in Sources */,
+				DCFA063919F8AB7400280342 /* DTTimePeriodChain.m in Sources */,
+				DCFA063719F8AB7400280342 /* DTError.m in Sources */,
 				DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */,
+				DCFA063B19F8AB7400280342 /* DTTimePeriodGroup.m in Sources */,
+				DCFA063A19F8AB7400280342 /* DTTimePeriodCollection.m in Sources */,
+				DCFA061519F8A25800280342 /* UIViewController+ScrollingNavbar.m in Sources */,
+				DCFA063C19F8AB7400280342 /* NSDate+DateTools.m in Sources */,
 				DC6E813319F2F9E500E084AC /* HomeCustomTBCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
