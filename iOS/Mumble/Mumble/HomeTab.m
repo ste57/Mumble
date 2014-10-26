@@ -13,22 +13,15 @@
 #import "Mumble.h"
 #import "NSDate+DateTools.h"
 
-
 #define TITLE @"Home"
 #define TAB_TITLE @"Home"
-
-// Parse Info
-
-#define MUMBLE_DATA_CLASS @"Mumble"
-#define MUMBLE_DATA_CLASS_CONTENT @"content"
-#define MUMBLE_DATA_MSG_LOCATION @"msgLocation"
 
 
 ///// THINGS TO DO //////
 //
-// - create unique userID
 // - create post part of app
-// - add likes
+// - add likes/Comments
+// - add Locations
 //
 /////////////////////////
 
@@ -46,6 +39,22 @@
     BOOL hidden;
 }
 
+- (void) checkUserParseID {
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:USERID]) {
+        
+        PFObject *user = [PFObject objectWithClassName:USER_DATA_CLASS];
+        
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (succeeded) {
+             
+                [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:USERID];
+            }
+        }];
+    }
+}
+
 - (void) viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
@@ -54,6 +63,8 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self checkUserParseID];
     
     self.title = TAB_TITLE;
     
@@ -64,14 +75,20 @@
     [self createTableView];
     
     [self retrieveMumbleData];
+    
+    [self addStatusBarBanner];
+}
 
+- (void) addStatusBarBanner {
+    
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
-    top.backgroundColor = [UIColor colorWithRed:0.925 green:0.588 blue:0.220 alpha:1];
+    top.backgroundColor = [UIColor colorWithRed:0.46 green:0.64 blue:0.78 alpha:1.0];
     [currentWindow addSubview:top];
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle{
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    
     return UIStatusBarStyleLightContent;
 }
 
@@ -112,6 +129,13 @@
                 
                 mumble.createdAt = object.createdAt.timeAgoSinceNow;
                 
+                /////// get number of likes
+                
+                //PFQuery *likesQuery = [PFQuery queryWithClassName:LIKES_DATA_CLASS];
+                
+                
+                /////// get comments
+                
                 [Mumbles addObject:mumble];
             }
             
@@ -127,12 +151,8 @@
 }
 
 - (void) refreshTable {
-    
-    //self.navigationController.scrollNavigationBar.scrollView = nil;
-    
+
     [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
-    // self.navigationController.scrollNavigationBar.scrollView = tableView;
 }
 
 - (void) createTableView {
@@ -223,8 +243,8 @@
 
 #pragma mark - The Magic!
 
--(void)expand
-{
+- (void) expand {
+    
     if(hidden)
         return;
 
@@ -236,8 +256,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
--(void)contract
-{
+- (void) contract {
+    
     if(!hidden)
         return;
 
@@ -246,53 +266,45 @@
     [self.tabBarController setTabBarHidden:NO
                                   animated:YES];
 
-    [self.navigationController setNavigationBarHidden:NO
-                                             animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
     startContentOffset = lastContentOffset = scrollView.contentOffset.y;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void) scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     CGFloat currentOffset = scrollView.contentOffset.y;
     CGFloat differenceFromStart = startContentOffset - currentOffset;
     CGFloat differenceFromLast = lastContentOffset - currentOffset;
     lastContentOffset = currentOffset;
 
-
-
-    if((differenceFromStart) < 0)
-    {
+    if((differenceFromStart) < 0) {
         // scroll up
         if(scrollView.isTracking && (abs(differenceFromLast)>1))
             [self expand];
-    }
-    else {
+        
+    } else {
         if(scrollView.isTracking && (abs(differenceFromLast)>1))
             [self contract];
     }
-
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
+- (void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 }
 
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
-{
+- (BOOL) scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    
     [self contract];
     return YES;
 }
-
 
 @end

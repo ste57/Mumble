@@ -29,9 +29,6 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-
-    self.window.backgroundColor = [UIColor colorWithRed:0.93 green:0.53 blue:0.02 alpha:1.0];
-
     
     tabBar = [[UITabBarController alloc] init];
     tabArray = [[NSMutableArray alloc] init];
@@ -44,9 +41,9 @@
     
     tabBar.viewControllers = tabArray;
     
-    [[UITabBar appearance] setBarTintColor:NAV_BAR_COLOUR];
+    // [[UITabBar appearance] setBarTintColor:NAV_BAR_COLOUR];
     
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setTintColor:NAV_BAR_COLOUR];
     
     // Set Start View
     

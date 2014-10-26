@@ -16,6 +16,20 @@
 
 #define MAIN_TEXT_FONT_COLOUR [UIColor colorWithRed:0.03 green:0.46 blue:0.58 alpha:1.0]
 
-#define NAV_BAR_COLOUR [UIColor colorWithRed:0.93 green:0.53 blue:0.02 alpha:1.0]
+#define NAV_BAR_COLOUR [UIColor colorWithRed:0.41 green:0.57 blue:0.69 alpha:1.0]
 
 #define MUMBLE_HOME_OPTIONS_ICON_COLOUR [UIColor grayColor]
+
+// NSUserDefaults
+
+#define USERID @"UserID"
+
+// Parse Info
+
+#define USER_DATA_CLASS @"User"
+
+#define MUMBLE_DATA_CLASS @"Mumble"
+#define MUMBLE_DATA_CLASS_CONTENT @"content"
+#define MUMBLE_DATA_MSG_LOCATION @"msgLocation"
+
+#define LIKES_DATA_CLASS @"Likes"

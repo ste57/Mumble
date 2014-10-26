@@ -99,11 +99,11 @@
     [self.contentView addSubview:commentsLabel];
 
     NSDictionary *views = @{@"content": contentTextView,
-                            @"timeIcon": timeImg,
+                            @"timeImg": timeImg,
                             @"timeLabel": timeLabel,
-                            @"heartIcon": heartImg,
+                            @"heartImg": heartImg,
                             @"heartLabel": heartLabel,
-                            @"commentIcon": commentImg,
+                            @"commentImg": commentImg,
                             @"commentsLabel": commentsLabel };
 
 
@@ -111,21 +111,21 @@
 
     // ImageView Constraints
 
-    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[timeIcon(8)]" options:0 metrics:nil views:views]];
-    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[timeIcon(8)]" options:0 metrics:nil views:views]];
+    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[timeImg(8)]" options:0 metrics:nil views:views]];
+    [timeImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[timeImg(8)]" options:0 metrics:nil views:views]];
 
-    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[heartIcon(15)]" options:0 metrics:nil views:views]];
-    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[heartIcon(15)]" options:0 metrics:nil views:views]];
+    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[heartImg(15)]" options:0 metrics:nil views:views]];
+    [heartImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[heartImg(15)]" options:0 metrics:nil views:views]];
 
-    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon(16)]" options:0 metrics:nil views:views]];
-    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentIcon(16)]" options:0 metrics:nil views:views]];
+    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentImg(16)]" options:0 metrics:nil views:views]];
+    [commentImg addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[commentImg(16)]" options:0 metrics:nil views:views]];
 
 
     // Horizontal Constraints
 
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-15-[content]-15-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[timeIcon]-5-[timeLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentIcon]-5-[commentsLabel]-28-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-20-[timeImg]-5-[timeLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[commentImg]-5-[commentsLabel]-28-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
 
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartImg attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:-5.0]];
 
@@ -142,7 +142,7 @@
                                       [NSString stringWithFormat:@"V:|-10-[content][commentsLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
 
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
-                                      [NSString stringWithFormat:@"V:|-10-[content][heartIcon]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
+                                      [NSString stringWithFormat:@"V:|-10-[content][heartImg]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
                                       [NSString stringWithFormat:@"V:|-10-[content][heartLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
