@@ -35,7 +35,9 @@
     
     CGFloat startContentOffset;
     CGFloat lastContentOffset;
-
+    
+    UIView *navBarBanner;
+    
     BOOL hidden;
 }
 
@@ -48,16 +50,11 @@
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             if (succeeded) {
-             
+                
                 [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:USERID];
             }
         }];
     }
-}
-
-- (void) viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
 }
 
 - (void) viewDidLoad {
@@ -72,19 +69,50 @@
     
     [self removeBackButtonText];
     
+    [self addNavigationBarItems];
+    
     [self createTableView];
     
     [self retrieveMumbleData];
-    
-    [self addStatusBarBanner];
 }
 
-- (void) addStatusBarBanner {
+- (void) addNavigationBarItems {
     
-    UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
-    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
-    top.backgroundColor = [UIColor colorWithRed:0.46 green:0.64 blue:0.78 alpha:1.0];
-    [currentWindow addSubview:top];
+    // Post Message
+    UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(postMessage)];
+    [postButton setImage:[UIImage imageNamed:@"postIcon"]];
+    
+    self.navigationItem.rightBarButtonItem = postButton;
+    
+    // Search Location
+    UIBarButtonItem *locationButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(searchLocation)];
+    [locationButton setImage:[UIImage imageNamed:@"location"]];
+    
+    self.navigationItem.leftBarButtonItem = locationButton;
+}
+
+- (void) postMessage {
+    
+    navBarBanner.hidden = YES;
+    PostMessageViewController *post = [[PostMessageViewController alloc] init];
+    [self presentViewController:post animated:YES completion:nil];
+}
+
+- (void) searchLocation {
+    
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    navBarBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
+    navBarBanner.backgroundColor = NAV_BAR_HEADER_COLOUR;
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    
+    [navBarBanner removeFromSuperview];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
@@ -97,6 +125,7 @@
     PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
     
     [query orderByDescending:@"createdAt"];
+   
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -125,33 +154,50 @@
                 
                 mumble.cellHeight = HOME_TBCELL_DEFAULT_HEIGHT + size.height;
                 
-                ///////
+                /////// time ago
                 
                 mumble.createdAt = object.createdAt.timeAgoSinceNow;
                 
-                /////// get number of likes
-                
-                //PFQuery *likesQuery = [PFQuery queryWithClassName:LIKES_DATA_CLASS];
                 
                 
-                /////// get comments
+              /*  /////// get number of likes
+                
+                PFQuery *likesQuery = [PFQuery queryWithClassName:LIKES_DATA_CLASS];
+                
+                [likesQuery whereKey:LIKES_MUMBLE_ID equalTo:mumble.objectId];
+                
+                mumble.likes = (int) [likesQuery findObjects].count;
+                
+                
+                
+                /////// get commments
+                
+                PFQuery *commentsQuery = [PFQuery queryWithClassName:COMMENTS_DATA_CLASS];
+                
+                [commentsQuery whereKey:COMMENTS_MUMBLE_ID equalTo:mumble.objectId];
+                
+                mumble.commentsArray = [commentsQuery findObjects];
+                
+                /////// add mumble to array*/
                 
                 [Mumbles addObject:mumble];
             }
             
             [self refreshTable];
+            
             [refreshControl endRefreshing];
             
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+            
             [refreshControl endRefreshing];
         }
     }];
 }
 
 - (void) refreshTable {
-
+    
     [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
@@ -166,7 +212,7 @@
     tableView.dataSource = self;
     
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    
     tableView.separatorColor = [UIColor colorWithRed:0.875 green:0.875 blue:0.875 alpha:0.7];
     
     [self.view addSubview:tableView];
@@ -209,6 +255,8 @@
     
     cell.mumble = mumble;
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     [cell createLabels];
     
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
@@ -247,12 +295,12 @@
     
     if(hidden)
         return;
-
+    
     hidden = YES;
 
     [self.tabBarController setTabBarHidden:YES
                                   animated:YES];
-
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
@@ -260,12 +308,12 @@
     
     if(!hidden)
         return;
-
+    
     hidden = NO;
-
+    
     [self.tabBarController setTabBarHidden:NO
                                   animated:YES];
-
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -283,7 +331,7 @@
     CGFloat differenceFromStart = startContentOffset - currentOffset;
     CGFloat differenceFromLast = lastContentOffset - currentOffset;
     lastContentOffset = currentOffset;
-
+    
     if((differenceFromStart) < 0) {
         // scroll up
         if(scrollView.isTracking && (abs(differenceFromLast)>1))

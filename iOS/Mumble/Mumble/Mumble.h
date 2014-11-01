@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSString *createdAt;
 @property (strong, nonatomic) NSString *msgLocation;
-@property (strong, nonatomic) NSMutableArray *commentsArray;
+@property (strong, nonatomic) NSArray *commentsArray;
 @property int likes;
 
 @property (nonatomic) double cellHeight;

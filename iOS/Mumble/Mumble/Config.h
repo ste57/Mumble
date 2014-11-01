@@ -10,15 +10,21 @@
 
 #define HOME_TBCELL_DEFAULT_HEIGHT 60.0
 
-#define MUMBLE_CONTENT_TEXT_FONT [UIFont fontWithName:@"Avenir" size:16.0]
+#define MUMBLE_FONT_NAME @"Avenir"
+
+#define MUMBLE_CONTENT_TEXT_FONT [UIFont fontWithName:MUMBLE_FONT_NAME size:16.0]
 
 #define HOME_TIME_FONT [UIFont fontWithName:@"Avenir-Light" size:12.0]
 
-#define MAIN_TEXT_FONT_COLOUR [UIColor colorWithRed:0.03 green:0.46 blue:0.58 alpha:1.0]
+#define NAV_BAR_COLOUR [UIColor colorWithRed:87.0/255.0 green:162.0/255.0 blue:187.0/255.0 alpha:1.0]
 
-#define NAV_BAR_COLOUR [UIColor colorWithRed:0.41 green:0.57 blue:0.69 alpha:1.0]
+#define NAV_BAR_HEADER_COLOUR [UIColor colorWithRed:112.0/255.0 green:175.0/255.0 blue:196.0/255.0 alpha:1.0]
 
 #define MUMBLE_HOME_OPTIONS_ICON_COLOUR [UIColor grayColor]
+
+#define MUMBLE_CHARACTER_LIMIT 150
+
+#define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
 // NSUserDefaults
 
@@ -33,3 +39,7 @@
 #define MUMBLE_DATA_MSG_LOCATION @"msgLocation"
 
 #define LIKES_DATA_CLASS @"Likes"
+#define LIKES_MUMBLE_ID @"mumbleID"
+
+#define COMMENTS_DATA_CLASS @"Comments"
+#define COMMENTS_MUMBLE_ID @"mumbleID"

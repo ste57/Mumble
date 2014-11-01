@@ -74,7 +74,7 @@
     
     UILabel *heartLabel = [[UILabel alloc] init];
     heartLabel.textAlignment = NSTextAlignmentLeft;
-    heartLabel.text = @"10";
+    heartLabel.text = [NSString stringWithFormat:@"%i", (int)mumble.likes];
     heartLabel.font = HOME_TIME_FONT;
     heartLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     heartLabel.alpha = overallOpacity;
@@ -88,15 +88,20 @@
     commentImg.alpha = overallOpacity;
     [self.contentView addSubview:commentImg];
     
-    
     UILabel *commentsLabel = [[UILabel alloc] init];
     commentsLabel.textAlignment = NSTextAlignmentLeft;
-    commentsLabel.text = @"5";
+    commentsLabel.text = [NSString stringWithFormat:@"%i", (int)mumble.commentsArray.count];
     commentsLabel.font = HOME_TIME_FONT;
     commentsLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     commentsLabel.alpha = overallOpacity;
     [commentsLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:commentsLabel];
+    
+    if (mumble.commentsArray.count < 1) {
+        
+        //commentsLabel.alpha = 0;
+        //commentImg.alpha = 0;
+    }
 
     NSDictionary *views = @{@"content": contentTextView,
                             @"timeImg": timeImg,
