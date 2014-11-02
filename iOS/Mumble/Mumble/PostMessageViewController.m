@@ -208,7 +208,7 @@
     
     postButton.frame = CGRectMake(0, 0, 50.0, 30.0);
     
-    postButton.center = CGPointMake(280.0, 50.0);
+    postButton.center = CGPointMake(self.view.frame.size.width - 40.0, 50.0);
     
     postButton.titleLabel.font = [UIFont fontWithName:MUMBLE_FONT_NAME size:19.0];
     
@@ -232,10 +232,6 @@
         [mumble setObject:locationTextView.text forKey:MUMBLE_DATA_MSG_LOCATION];
         
         [mumble setObject:[[NSUserDefaults standardUserDefaults] objectForKey:USERID] forKey:MUMBLE_DATA_USER];
-        
-        [mumble setObject:0 forKey:MUMBLE_DATA_LIKES];
-        
-        [mumble setObject:0 forKey:MUMBLE_DATA_COMMENTS];
         
         [mumble saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
@@ -262,7 +258,7 @@
     
     charCounterlbl.textAlignment = NSTextAlignmentRight;
     
-    charCounterlbl.center = CGPointMake(230.0, 50.0);
+    charCounterlbl.center = CGPointMake(self.view.frame.size.width - 90.0, 50.0);
     
     charCounterlbl.text = [NSString stringWithFormat:@"%i", MUMBLE_CHARACTER_LIMIT];
     

@@ -32,7 +32,7 @@
 
 #define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
-#define LOCATION_TEXTVIEW_PLACEHOLDER @"Tag (optional)"
+#define LOCATION_TEXTVIEW_PLACEHOLDER @"Where are you? (optional)"
 
 #define LOCATION_IDENTIFIER @"@"
 
