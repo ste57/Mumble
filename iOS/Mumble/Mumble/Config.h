@@ -24,9 +24,23 @@
 
 #define MUMBLE_CHARACTER_LIMIT 150
 
+#define LOCATION_CHARACTER_LIMIT 25
+
+#define MUMBLE_MAX_NUMBER_OF_LINES 5
+
 #define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
+#define LOCATION_TEXTVIEW_PLACEHOLDER @"Where are you? (optional)"
+
+#define LOCATION_IDENTIFIER @"@"
+
+// Notifications
+
+#define REFRESH_TABLEVIEW @"RefreshTableView"
+
 // NSUserDefaults
+
+#define MUMBLES_BY_USER @"MumblesByUser"
 
 #define USERID @"UserID"
 
@@ -37,6 +51,9 @@
 #define MUMBLE_DATA_CLASS @"Mumble"
 #define MUMBLE_DATA_CLASS_CONTENT @"content"
 #define MUMBLE_DATA_MSG_LOCATION @"msgLocation"
+#define MUMBLE_DATA_USER @"userID"
+#define MUMBLE_DATA_LIKES @"likesCount"
+#define MUMBLE_DATA_COMMENTS @"commentsCount"
 
 #define LIKES_DATA_CLASS @"Likes"
 #define LIKES_MUMBLE_ID @"mumbleID"

@@ -74,6 +74,8 @@
     [self createTableView];
     
     [self retrieveMumbleData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retrieveMumbleData) name:REFRESH_TABLEVIEW object:nil];
 }
 
 - (void) addNavigationBarItems {
