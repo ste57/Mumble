@@ -52,6 +52,7 @@
             if (succeeded) {
                 
                 [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:USERID];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }];
     }
@@ -128,6 +129,7 @@
     
     [query orderByDescending:@"createdAt"];
    
+    [query setLimit:MAX_MUMBLES_ONSCREEN];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -156,9 +158,13 @@
                 
                 mumble.cellHeight = HOME_TBCELL_DEFAULT_HEIGHT + size.height;
                 
-                /////// time ago
+                //////
                 
                 mumble.createdAt = object.createdAt.timeAgoSinceNow;
+                
+                mumble.likes = (int)object[MUMBLE_DATA_LIKES];
+                
+                mumble.comments = (int)object[MUMBLE_DATA_COMMENTS];
                 
                 
                 
@@ -190,8 +196,6 @@
             [refreshControl endRefreshing];
             
         } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
             
             [refreshControl endRefreshing];
         }

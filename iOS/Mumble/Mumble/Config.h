@@ -28,9 +28,11 @@
 
 #define MUMBLE_MAX_NUMBER_OF_LINES 5
 
+#define MAX_MUMBLES_ONSCREEN 250
+
 #define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
-#define LOCATION_TEXTVIEW_PLACEHOLDER @"Where are you? (optional)"
+#define LOCATION_TEXTVIEW_PLACEHOLDER @"Tag (optional)"
 
 #define LOCATION_IDENTIFIER @"@"
 

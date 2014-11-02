@@ -70,7 +70,7 @@
     [heartImg setTranslatesAutoresizingMaskIntoConstraints:false];
     heartImg.alpha = overallOpacity;
     [self.contentView addSubview:heartImg];
-    
+     
     
     UILabel *heartLabel = [[UILabel alloc] init];
     heartLabel.textAlignment = NSTextAlignmentLeft;
@@ -90,14 +90,14 @@
     
     UILabel *commentsLabel = [[UILabel alloc] init];
     commentsLabel.textAlignment = NSTextAlignmentLeft;
-    commentsLabel.text = [NSString stringWithFormat:@"%i", (int)mumble.commentsArray.count];
+    commentsLabel.text = [NSString stringWithFormat:@"%i", mumble.comments];
     commentsLabel.font = HOME_TIME_FONT;
     commentsLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     commentsLabel.alpha = overallOpacity;
     [commentsLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     [self.contentView addSubview:commentsLabel];
     
-    if (mumble.commentsArray.count < 1) {
+    if (mumble.comments < 1) {
         
         //commentsLabel.alpha = 0;
         //commentImg.alpha = 0;
