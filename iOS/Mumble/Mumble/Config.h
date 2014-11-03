@@ -32,7 +32,7 @@
 
 #define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
-#define LOCATION_TEXTVIEW_PLACEHOLDER @"Where are you? (optional)"
+#define LOCATION_TEXTVIEW_PLACEHOLDER @"Tag your mumble? (optional)"
 
 #define LOCATION_IDENTIFIER @"@"
 
@@ -43,6 +43,8 @@
 // NSUserDefaults
 
 #define MUMBLES_BY_USER @"MumblesByUser"
+
+#define MUMBLES_LIKED_BY_USER @"MumblesLikedByUser"
 
 #define USERID @"UserID"
 

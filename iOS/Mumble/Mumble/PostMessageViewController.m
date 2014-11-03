@@ -55,8 +55,6 @@
     
     mumbleTextView.delegate = self;
     
-    mumbleTextView.autocorrectionType = UITextAutocorrectionTypeNo;
-    
     [self.view addSubview:mumbleTextView];
     
     [mumbleTextView becomeFirstResponder];

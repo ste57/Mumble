@@ -7,13 +7,34 @@
 //
 
 #import "HomeCustomTBCell.h"
+#import "UIButton+Extensions.h"
 #import "Config.h"
+#import <Parse/Parse.h>
 
-@implementation HomeCustomTBCell
+@implementation HomeCustomTBCell {
+    
+    UIButton *heartImg;
+    NSMutableArray *likedMumbles;
+    UILabel *heartLabel;
+}
 
 @synthesize mumble;
 
+- (void) retrieveLikedMumbles {
+    
+    likedMumbles = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *tempArray = (NSMutableArray*)[[NSUserDefaults standardUserDefaults] objectForKey:MUMBLES_LIKED_BY_USER];
+    
+    for (NSString *_id in tempArray) {
+        
+        [likedMumbles addObject:_id];
+    }
+}
+
 - (void) createLabels {
+    
+    [self retrieveLikedMumbles];
     
     double overallOpacity = 0.75;
     double timeOpacity = 0.75;
@@ -65,16 +86,26 @@
     [self.contentView addSubview:timeLabel];
 
     
-    UIImageView *heartImg = [[UIImageView alloc] init];
-    heartImg.image = [UIImage imageNamed:@"heart"];
+    heartImg = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [heartImg addTarget:self action:@selector(heartBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [heartImg setBackgroundImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
+    [heartImg setBackgroundImage:[UIImage imageNamed:@"heartLiked"] forState:UIControlStateSelected];
     [heartImg setTranslatesAutoresizingMaskIntoConstraints:false];
+    heartImg.adjustsImageWhenHighlighted = NO;
+    [heartImg setTintColor:[UIColor whiteColor]];
     heartImg.alpha = overallOpacity;
+    [heartImg setHitTestEdgeInsets:UIEdgeInsetsMake(-20, -20, -20, -20)];
     [self.contentView addSubview:heartImg];
-     
     
-    UILabel *heartLabel = [[UILabel alloc] init];
+    if ([likedMumbles containsObject:mumble.objectId]) {
+        
+        heartImg.selected = YES;
+    }
+
+    
+    heartLabel = [[UILabel alloc] init];
     heartLabel.textAlignment = NSTextAlignmentLeft;
-    heartLabel.text = [NSString stringWithFormat:@"%i", (int)mumble.likes];
+    heartLabel.text = [self abbreviateNumber:mumble.likes];
     heartLabel.font = HOME_TIME_FONT;
     heartLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     heartLabel.alpha = overallOpacity;
@@ -88,9 +119,10 @@
     commentImg.alpha = overallOpacity;
     [self.contentView addSubview:commentImg];
     
+    
     UILabel *commentsLabel = [[UILabel alloc] init];
     commentsLabel.textAlignment = NSTextAlignmentLeft;
-    commentsLabel.text = [NSString stringWithFormat:@"%i", mumble.comments];
+    commentsLabel.text = [NSString stringWithFormat:@"%ld", mumble.comments];
     commentsLabel.font = HOME_TIME_FONT;
     commentsLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     commentsLabel.alpha = overallOpacity;
@@ -134,7 +166,7 @@
 
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartImg attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:-5.0]];
 
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:12.0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:heartLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:8.0]];
 
     // Vertical Constriants
 
@@ -151,6 +183,120 @@
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
                                       [NSString stringWithFormat:@"V:|-10-[content][heartLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
+}
+
+- (void) heartBtnPressed {
+    
+    [self retrieveLikedMumbles];
+    
+    if (heartImg.selected) {
+        
+        [self unLikeMumble];
+        
+    } else {
+        
+        [self likeMumble];
+    }
+}
+
+- (void) likeMumble {
+    
+    heartImg.selected = YES;
+    
+    if (![likedMumbles containsObject:mumble.objectId]) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
+        
+        [query getObjectInBackgroundWithId:mumble.objectId block:^(PFObject *mumblePFObject, NSError *error) {
+            
+            [mumblePFObject incrementKey:MUMBLE_DATA_LIKES byAmount:[NSNumber numberWithInt:1]];
+            [mumblePFObject saveEventually];
+        }];
+        
+        [likedMumbles addObject:mumble.objectId];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:likedMumbles forKey:MUMBLES_LIKED_BY_USER];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        mumble.likes++;
+        
+        heartLabel.text = [self abbreviateNumber:mumble.likes];
+    }
+}
+
+- (void) unLikeMumble {
+    
+    heartImg.selected = NO;
+    
+    PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
+    
+    [query getObjectInBackgroundWithId:mumble.objectId block:^(PFObject *mumblePFObject, NSError *error) {
+        
+        [mumblePFObject incrementKey:MUMBLE_DATA_LIKES byAmount:[NSNumber numberWithInt:-1]];
+        [mumblePFObject saveEventually];
+    }];
+
+    [likedMumbles removeObject:mumble.objectId];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:likedMumbles forKey:MUMBLES_LIKED_BY_USER];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    mumble.likes--;
+    
+    heartLabel.text = [self abbreviateNumber:mumble.likes];
+}
+
+- (NSString *) abbreviateNumber:(long)num {
+    
+    NSString *abbrevNum;
+    float number = (float)num;
+    
+    //Prevent numbers smaller than 1000 to return NULL
+    if (num >= 1000) {
+        NSArray *abbrev = @[@"K", @"M", @"B"];
+        
+        for (long i = abbrev.count - 1; i >= 0; i--) {
+            
+            // Convert array index to "1000", "1000000", etc
+            int size = pow(10,(i+1)*3);
+            
+            if(size <= number) {
+                // Removed the round and dec to make sure small numbers are included like: 1.1K instead of 1K
+                number = number/size;
+                NSString *numberString = [self floatToString:number];
+                
+                // Add the letter for the abbreviation
+                abbrevNum = [NSString stringWithFormat:@"%@%@", numberString, [abbrev objectAtIndex:i]];
+            }
+            
+        }
+    } else {
+        
+        // Numbers like: 999 returns 999 instead of NULL
+        abbrevNum = [NSString stringWithFormat:@"%d", (int)number];
+    }
+    
+    return abbrevNum;
+}
+
+- (NSString *) floatToString:(float) val {
+    
+    NSString *ret = [NSString stringWithFormat:@"%.1f", val];
+    unichar c = [ret characterAtIndex:[ret length] - 1];
+    
+    while (c == 48) { // 0
+        ret = [ret substringToIndex:[ret length] - 1];
+        c = [ret characterAtIndex:[ret length] - 1];
+        
+        //After finding the "." we know that everything left is the decimal number, so get a substring excluding the "."
+        if(c == 46) { // .
+            ret = [ret substringToIndex:[ret length] - 1];
+        }
+    }
+    
+    return ret;
 }
 
 @end

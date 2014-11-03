@@ -13,7 +13,7 @@
 #import "Mumble.h"
 #import "NSDate+DateTools.h"
 
-#define TITLE @"Home"
+#define TITLE @"New"
 #define TAB_TITLE @"Home"
 
 
@@ -162,31 +162,9 @@
                 
                 mumble.createdAt = object.createdAt.timeAgoSinceNow;
                 
-                mumble.likes = (int)object[MUMBLE_DATA_LIKES];
+                mumble.likes = [object[MUMBLE_DATA_LIKES] longValue];
                 
-                mumble.comments = (int)object[MUMBLE_DATA_COMMENTS];
-                
-                
-                
-              /*  /////// get number of likes
-                
-                PFQuery *likesQuery = [PFQuery queryWithClassName:LIKES_DATA_CLASS];
-                
-                [likesQuery whereKey:LIKES_MUMBLE_ID equalTo:mumble.objectId];
-                
-                mumble.likes = (int) [likesQuery findObjects].count;
-                
-                
-                
-                /////// get commments
-                
-                PFQuery *commentsQuery = [PFQuery queryWithClassName:COMMENTS_DATA_CLASS];
-                
-                [commentsQuery whereKey:COMMENTS_MUMBLE_ID equalTo:mumble.objectId];
-                
-                mumble.commentsArray = [commentsQuery findObjects];
-                
-                /////// add mumble to array*/
+                mumble.comments = [object[MUMBLE_DATA_COMMENTS] longValue];
                 
                 [Mumbles addObject:mumble];
             }
