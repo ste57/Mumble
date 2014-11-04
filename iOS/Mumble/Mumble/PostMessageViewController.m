@@ -29,6 +29,10 @@
     [self createDisplay];
 }
 
+- (void)addConstraints {
+    
+}
+
 - (void) createDisplay {
     
     [self createCloseButton];

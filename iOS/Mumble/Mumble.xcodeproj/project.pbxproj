@@ -386,10 +386,11 @@
 				TargetAttributes = {
 					DC838F2319F29BD10077E010 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 49MJRZBUY4;
+						DevelopmentTeam = 3XXD9JUN7B;
 					};
 					DC838F3C19F29BD20077E010 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 3XXD9JUN7B;
 						TestTargetID = DC838F2319F29BD10077E010;
 					};
 				};

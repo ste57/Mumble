@@ -25,10 +25,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.title = mumble.content;
-    
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-      MUMBLE_CONTENT_TEXT_FONT,
-      NSFontAttributeName, nil]];
+
+    NSDictionary *titleTextAttrs = @{NSFontAttributeName: MUMBLE_CONTENT_TEXT_FONT};
+    [self.navigationController.navigationBar setTitleTextAttributes:titleTextAttrs];
     
     [self createTableView];
 }
@@ -47,9 +46,13 @@
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     tableView.separatorColor = [UIColor colorWithRed:0.875 green:0.875 blue:0.875 alpha:0.7];
+
+    [tableView registerClass:[CommentsTableViewCell class] forCellReuseIdentifier:@"cell"];
+
+    tableView.estimatedRowHeight = 50.0;
     
     [self.view addSubview:tableView];
-    
+
     if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -66,9 +69,11 @@
 
 - (UITableViewCell*) tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [table dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    CommentsTableViewCell *cell = [[CommentsTableViewCell alloc] initWithFrame:CGRectZero];
+    CommentsTableViewCell *cell;
+
+    if (!cell){
+        cell = [[CommentsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
     
     /*Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
     
@@ -88,10 +93,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-   // Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
-    
-    return 50.0;//mumble.cellHeight;
+
+    // Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
+
+    return 80.0;//mumble.cellHeight;
 }
 
 - (void) tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
