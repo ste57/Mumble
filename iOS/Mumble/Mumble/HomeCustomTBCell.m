@@ -13,9 +13,11 @@
 
 @implementation HomeCustomTBCell {
     
-    UIButton *heartImg;
+    UIButton *heartImg, *commentImg;
     NSMutableArray *likedMumbles;
-    UILabel *heartLabel;
+    UILabel *heartLabel, *commentsLabel;
+    
+    
 }
 
 @synthesize mumble;
@@ -113,16 +115,20 @@
     [self.contentView addSubview:heartLabel];
     
     
-    UIImageView *commentImg = [[UIImageView alloc] init];
-    commentImg.image = [UIImage imageNamed:@"commentIcon"];
+    commentImg = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [commentImg addTarget:self action:@selector(commentBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [commentImg setBackgroundImage:[UIImage imageNamed:@"commentIcon"] forState:UIControlStateNormal];
     [commentImg setTranslatesAutoresizingMaskIntoConstraints:false];
+    commentImg.adjustsImageWhenHighlighted = NO;
+    [commentImg setTintColor:[UIColor whiteColor]];
     commentImg.alpha = overallOpacity;
+    [commentImg setHitTestEdgeInsets:UIEdgeInsetsMake(-20, -20, -20, -20)];
     [self.contentView addSubview:commentImg];
     
     
-    UILabel *commentsLabel = [[UILabel alloc] init];
+    commentsLabel = [[UILabel alloc] init];
     commentsLabel.textAlignment = NSTextAlignmentLeft;
-    commentsLabel.text = [NSString stringWithFormat:@"%ld", mumble.comments];
+    commentsLabel.text = [self abbreviateNumber:mumble.comments];
     commentsLabel.font = HOME_TIME_FONT;
     commentsLabel.textColor = MUMBLE_HOME_OPTIONS_ICON_COLOUR;
     commentsLabel.alpha = overallOpacity;
@@ -183,6 +189,11 @@
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
                                       [NSString stringWithFormat:@"V:|-10-[content][heartLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
+}
+
+- (void) commentBtnPressed {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:COMMENTS_PRESSED object:mumble];
 }
 
 - (void) heartBtnPressed {

@@ -12,18 +12,10 @@
 #import <Parse/Parse.h>
 #import "Mumble.h"
 #import "NSDate+DateTools.h"
+#import "CommentsViewController.h"
 
 #define TITLE @"New"
 #define TAB_TITLE @"Home"
-
-
-///// THINGS TO DO //////
-//
-// - create post part of app
-// - add likes/Comments
-// - add Locations
-//
-/////////////////////////
 
 
 @implementation HomeTab {
@@ -77,6 +69,20 @@
     [self retrieveMumbleData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retrieveMumbleData) name:REFRESH_TABLEVIEW object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComments:) name:COMMENTS_PRESSED object:nil];
+}
+
+- (void) showComments:(NSNotification*)notification {
+    
+    [self contract];
+
+    Mumble *mumble = [notification object];
+    
+    CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
+    
+    commentsVC.mumble = mumble;
+    
+    [self.navigationController pushViewController:commentsVC animated:YES];
 }
 
 - (void) addNavigationBarItems {

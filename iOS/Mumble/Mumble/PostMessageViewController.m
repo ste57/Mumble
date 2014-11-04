@@ -10,6 +10,7 @@
 #import "Config.h"
 #import "UIPlaceHolderTextView.h"
 #import <Parse/Parse.h>
+#import "UIButton+Extensions.h"
 
 
 @implementation PostMessageViewController {
@@ -64,17 +65,21 @@
     
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, 320, 44)];
     
-    toolBar.barTintColor = [UIColor whiteColor];
+    toolBar.barTintColor = NAV_BAR_HEADER_COLOUR;//[UIColor whiteColor];
     
-    locationTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width-30.0, 44.0)];
+    toolBar.translucent = NO;
+    
+    locationTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width-30.0, 40.0)];
     
     locationTextView.clipsToBounds = YES;
     
+    locationTextView.backgroundColor = NAV_BAR_HEADER_COLOUR;
+    
     locationTextView.delegate = self;
     
-    locationTextView.textColor = [UIColor blackColor];
+    locationTextView.textColor = [UIColor whiteColor];//[UIColor blackColor];
     
-    locationTextView.placeholderColor = [UIColor lightGrayColor];
+    locationTextView.placeholderColor = [UIColor whiteColor];//[UIColor lightGrayColor];
     
     locationTextView.autocorrectionType = UITextAutocorrectionTypeNo;
     
@@ -99,11 +104,23 @@
         
         NSMutableAttributedString * string = [[NSMutableAttributedString alloc] initWithString:text];
         
-        [string addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, LOCATION_IDENTIFIER.length)];
+        [string addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, LOCATION_IDENTIFIER.length)];
         
         [locationTextView setAttributedText:string];
         
         locationTextView.font = mumbleTextView.font;
+        
+        locationTextView.textColor = [UIColor whiteColor];
+        
+        
+        char firstChar = [locationTextView.text characterAtIndex:0];
+        
+        if (firstChar != '@') {
+            
+            NSString *someText = locationTextView.text;
+            NSRange range = NSMakeRange(0,0);
+            locationTextView.text = [someText stringByReplacingCharactersInRange:range withString:LOCATION_IDENTIFIER];
+        }
     }
 }
 
@@ -278,6 +295,8 @@
     closeButton.center = CGPointMake(30.0, 50.0);
     
     [closeButton setBackgroundImage:[UIImage imageNamed:@"closeButton"] forState:UIControlStateNormal];
+    
+    [closeButton setHitTestEdgeInsets:UIEdgeInsetsMake(-20, -20, -20, -20)];
     
     [self.view addSubview:closeButton];
 }

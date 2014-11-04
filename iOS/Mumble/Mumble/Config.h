@@ -40,6 +40,8 @@
 
 #define REFRESH_TABLEVIEW @"RefreshTableView"
 
+#define COMMENTS_PRESSED @"CommentsPressed"
+
 // NSUserDefaults
 
 #define MUMBLES_BY_USER @"MumblesByUser"
