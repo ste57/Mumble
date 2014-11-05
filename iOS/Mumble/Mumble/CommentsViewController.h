@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Mumble.h"
+#import "SLKTextViewController.h"
 
-@interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CommentsViewController : SLKTextViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property Mumble *mumble;
 
