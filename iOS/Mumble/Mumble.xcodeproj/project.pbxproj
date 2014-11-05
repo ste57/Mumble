@@ -15,6 +15,7 @@
 		4E1ECE431A0A662A00F839D9 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE391A0A662A00F839D9 /* SLKTextView.m */; };
 		4E1ECE441A0A662A00F839D9 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE3B1A0A662A00F839D9 /* SLKTextViewController.m */; };
 		4E1ECE451A0A662A00F839D9 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE3D1A0A662A00F839D9 /* SLKTypingIndicatorView.m */; };
+		4E1ECE481A0A6FC000F839D9 /* CommentsTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */; };
 		DC32BAD819FDB7F100B47A73 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = DC32BAD719FDB7F100B47A73 /* Comment.m */; };
 		DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4B822719F2C82A0095D419 /* HomeTab.m */; };
 		DC578C4719F30E20003747AB /* Mumble.m in Sources */ = {isa = PBXBuildFile; fileRef = DC578C4619F30E20003747AB /* Mumble.m */; };
@@ -81,6 +82,8 @@
 		4E1ECE3B1A0A662A00F839D9 /* SLKTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextViewController.m; sourceTree = "<group>"; };
 		4E1ECE3C1A0A662A00F839D9 /* SLKTypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorView.h; sourceTree = "<group>"; };
 		4E1ECE3D1A0A662A00F839D9 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTypingIndicatorView.m; sourceTree = "<group>"; };
+		4E1ECE461A0A6FC000F839D9 /* CommentsTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewHeader.h; sourceTree = "<group>"; };
+		4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewHeader.m; sourceTree = "<group>"; };
 		DC32BAD619FDB7F100B47A73 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		DC32BAD719FDB7F100B47A73 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		DC4B822619F2C82A0095D419 /* HomeTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTab.h; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 				DCA398BE1A07579100D89A88 /* CommentsViewController.m */,
 				DCA398C11A07F4C500D89A88 /* CommentsTableViewCell.h */,
 				DCA398C21A07F4C500D89A88 /* CommentsTableViewCell.m */,
+				4E1ECE461A0A6FC000F839D9 /* CommentsTableViewHeader.h */,
+				4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */,
 			);
 			name = Comments;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				DCFA063819F8AB7400280342 /* DTTimePeriod.m in Sources */,
 				DCFA063919F8AB7400280342 /* DTTimePeriodChain.m in Sources */,
 				DCA398BC1A073B7B00D89A88 /* UIButton+Extensions.m in Sources */,
+				4E1ECE481A0A6FC000F839D9 /* CommentsTableViewHeader.m in Sources */,
 				4E1ECE451A0A662A00F839D9 /* SLKTypingIndicatorView.m in Sources */,
 				4E1ECE3F1A0A662A00F839D9 /* UITextView+SLKAdditions.m in Sources */,
 				DCFA063F19F8C6D100280342 /* UITabBarController+hidable.m in Sources */,

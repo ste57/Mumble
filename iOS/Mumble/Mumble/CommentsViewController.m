@@ -8,6 +8,7 @@
 
 #import "CommentsViewController.h"
 #import "Config.h"
+#import "CommentsTableViewHeader.h"
 #import "CommentsTableViewCell.h"
 
 @implementation CommentsViewController {
@@ -30,7 +31,7 @@
     self.bounces = YES;
     self.shakeToClearEnabled = YES;
     self.keyboardPanningEnabled = YES;
-    self.inverted = YES;
+    self.inverted = NO;
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[CommentsTableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -53,6 +54,13 @@
     self.typingIndicatorView.canResignByTouch = YES;
 
     [self.autoCompletionView registerClass:[CommentsTableViewCell class] forCellReuseIdentifier:@"cell"];
+
+    // Create Table View Header
+
+    UIView *headerView = [[CommentsTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+    headerView.backgroundColor = [UIColor whiteColor];
+
+    [self.tableView setTableHeaderView:headerView];
 }
 
 
