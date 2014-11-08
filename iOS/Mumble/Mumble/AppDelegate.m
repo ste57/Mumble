@@ -7,15 +7,17 @@
 //
 
 #import "AppDelegate.h"
-#import "CommentsViewController.h"
 #import <Parse/Parse.h>
 #import "HomeTab.h"
+#import "TrendingTabViewController.h"
+#import "MeTabViewController.h"
 #import "Config.h"
 
 @implementation AppDelegate {
     
-    //HomeTab *home;
-    CommentsViewController *home;
+    HomeTab *home;
+    TrendingTabViewController *trendingVC;
+    MeTabViewController *meVC;
     
     UITabBarController *tabBar;
     NSMutableArray *tabArray;
@@ -39,6 +41,10 @@
     
     [self addHomeTab];
     
+    [self addTrendingTab];
+    
+    [self addMeTab];
+    
     // Add Tab To Main Window
     
     tabBar.viewControllers = tabArray;
@@ -56,9 +62,24 @@
     return YES;
 }
 
+- (void) addTrendingTab {
+    
+    trendingVC = [[TrendingTabViewController alloc] init];
+    trendingVC.title = TRENDING_TITLE;
+    [self addNavigationBar:trendingVC];
+}
+
+- (void) addMeTab {
+    
+    meVC = [[MeTabViewController alloc] init];
+    meVC.title = ME_TITLE;
+    [self addNavigationBar:meVC];
+}
+
 - (void) addHomeTab {
     
-    home = [[CommentsViewController alloc] init];
+    home = [[HomeTab alloc] init];
+    home.title = HOME_TITLE;
     [self addNavigationBar:home];
 }
 

@@ -12,11 +12,8 @@
 
 @implementation CommentsTableViewHeader
 
-<<<<<<< HEAD
 @synthesize mumble;
 
-=======
->>>>>>> FETCH_HEAD
 -(id)initWithFrame:(CGRect)frame {
 
     self = [super initWithFrame:frame];
@@ -108,11 +105,8 @@
     return self;
 }
 
-<<<<<<< HEAD
 - (void) setLabelNames {
     
 }
 
-=======
->>>>>>> FETCH_HEAD
 @end

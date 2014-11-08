@@ -158,16 +158,19 @@
 
     // Vertical Constriants
 
-    NSDictionary *metrics = @{@"optionEndSpace": @10};
+    int optionEndSpace = 10;
 
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content][timeLabel]-(optionEndSpace)-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
+                                      [NSString stringWithFormat:@"V:|-10-[content][timeLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
-                                      @"V:|-10-[content][commentsLabel]-(optionEndSpace)-|" options:0 metrics:metrics views:views]];
+                                      [NSString stringWithFormat:@"V:|-10-[content][commentsLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
 
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content][heartImg]-(optionEndSpace)-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
+                                      [NSString stringWithFormat:@"V:|-10-[content][heartImg]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[content][heartLabel]-(optionEndSpace)-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:
+                                      [NSString stringWithFormat:@"V:|-10-[content][heartLabel]-%i-|", optionEndSpace] options:0 metrics:nil views:views]];
 }
 
 - (void) commentBtnPressed {

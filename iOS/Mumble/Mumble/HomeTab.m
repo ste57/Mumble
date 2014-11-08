@@ -15,10 +15,6 @@
 #import "CommentsViewController.h"
 #import "TagPressedViewController.h"
 
-#define TITLE @"New"
-#define TAB_TITLE @"Home"
-
-
 @implementation HomeTab {
     
     NSMutableArray *mumbles;
@@ -73,9 +69,7 @@
     
     [self checkUserParseID];
     
-    self.title = TAB_TITLE;
-    
-    self.navigationItem.title = TITLE;
+    self.navigationItem.title = HOME_TAB_TITLE;
     
     [self removeBackButtonText];
     

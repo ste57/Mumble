@@ -40,6 +40,17 @@
 
 #define IPHONE_IDENTIFIER_TAG @"@iPhone"
 
+// Tab Titles
+
+#define TRENDING_TITLE @"Trending"
+#define TRENDING_TAB_TITLE @"Hot"
+
+#define ME_TITLE @"Me"
+#define ME_TAB_TITLE @"Me"
+
+#define HOME_TITLE @"Home"
+#define HOME_TAB_TITLE @"New"
+
 // Notifications
 
 #define REFRESH_TABLEVIEW @"RefreshTableView"

@@ -57,16 +57,10 @@
 
     // Create Table View Header
 
-<<<<<<< HEAD
     CommentsTableViewHeader *headerView = [[CommentsTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
     headerView.backgroundColor = [UIColor whiteColor];
     headerView.mumble = mumble;
     [headerView setLabelNames];
-=======
-    UIView *headerView = [[CommentsTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
-    headerView.backgroundColor = [UIColor whiteColor];
-
->>>>>>> FETCH_HEAD
     [self.tableView setTableHeaderView:headerView];
 }
 
@@ -113,14 +107,9 @@
     [super didReceiveMemoryWarning];
 }
 
-<<<<<<< HEAD
 - (void)didPressRightButton:(id)sender {
     
     [super didPressRightButton:sender];
-=======
-- (void)didPressRightButton:(id)sender
-{
->>>>>>> FETCH_HEAD
     // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
 
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
