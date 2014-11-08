@@ -26,21 +26,27 @@
 
 #define LOCATION_CHARACTER_LIMIT 25
 
+#define POPULAR_TAG_LIMIT 1000
+
 #define MUMBLE_MAX_NUMBER_OF_LINES 5
 
-#define MAX_MUMBLES_ONSCREEN 250
+#define MAX_MUMBLES_ONSCREEN 150
 
 #define POST_TEXTVIEW_PLACEHOLDER @"What's mumbling?"
 
-#define LOCATION_TEXTVIEW_PLACEHOLDER @"Tag your mumble? (optional)"
+#define SEARCH_BAR_PLACEHOLDER @"Search tag"
 
-#define LOCATION_IDENTIFIER @"@"
+#define TAG_IDENTIFIER @"@"
+
+#define IPHONE_IDENTIFIER_TAG @"@iPhone"
 
 // Notifications
 
 #define REFRESH_TABLEVIEW @"RefreshTableView"
 
 #define COMMENTS_PRESSED @"CommentsPressed"
+
+#define TAG_PRESSED @"TagPressed"
 
 // NSUserDefaults
 
@@ -53,13 +59,16 @@
 // Parse Info
 
 #define USER_DATA_CLASS @"User"
+#define USER_DATA_LOCATION @"lastLocation"
 
 #define MUMBLE_DATA_CLASS @"Mumble"
 #define MUMBLE_DATA_CLASS_CONTENT @"content"
-#define MUMBLE_DATA_MSG_LOCATION @"msgLocation"
+#define MUMBLE_DATA_TAGS @"tags"
 #define MUMBLE_DATA_USER @"userID"
 #define MUMBLE_DATA_LIKES @"likesCount"
 #define MUMBLE_DATA_COMMENTS @"commentsCount"
+#define MUMBLE_DATA_LOCATION @"userLocation"
+#define MUMBLE_DATA_PHONE_TYPE @"msgLocation"
 
 #define LIKES_DATA_CLASS @"Likes"
 #define LIKES_MUMBLE_ID @"mumbleID"

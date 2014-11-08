@@ -8,11 +8,11 @@
 
 #import "CommentsViewController.h"
 #import "Config.h"
+#import "CommentsTableViewHeader.h"
 #import "CommentsTableViewCell.h"
 
 @implementation CommentsViewController {
-    
-    UITableView *tableView;
+
     NSMutableArray *commentsArray;
 }
 
@@ -21,43 +21,49 @@
 - (void) viewDidLoad {
     
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"Comments";
+    NSDictionary *titleTextAttrs = @{NSFontAttributeName: MUMBLE_CONTENT_TEXT_FONT};
+    [self.navigationController.navigationBar setTitleTextAttributes:titleTextAttrs];
     
-    self.title = mumble.content;
-    
-    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-      MUMBLE_CONTENT_TEXT_FONT,
-      NSFontAttributeName, nil]];
-    
-    [self createTableView];
+    //[self createTableView];
+
+    self.bounces = YES;
+    self.shakeToClearEnabled = YES;
+    self.keyboardPanningEnabled = YES;
+    self.inverted = NO;
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[CommentsTableViewCell class] forCellReuseIdentifier:@"cell"];
+
+    self.textView.placeholder = NSLocalizedString(@"Message", nil);
+    self.textView.placeholderColor = [UIColor lightGrayColor];
+    self.textView.layer.borderColor = [UIColor colorWithRed:217.0/255.0 green:217.0/255.0 blue:217.0/255.0 alpha:1.0].CGColor;
+    self.textView.pastableMediaTypes = SLKPastableMediaTypeAll|SLKPastableMediaTypePassbook;
+
+    [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
+
+    [self.textInputbar.editorTitle setTextColor:[UIColor darkGrayColor]];
+    [self.textInputbar.editortLeftButton setTintColor:[UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    [self.textInputbar.editortRightButton setTintColor:[UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0]];
+
+    self.textInputbar.autoHideRightButton = YES;
+    self.textInputbar.maxCharCount = 140;
+    self.textInputbar.counterStyle = SLKCounterStyleSplit;
+
+    self.typingIndicatorView.canResignByTouch = YES;
+
+    [self.autoCompletionView registerClass:[CommentsTableViewCell class] forCellReuseIdentifier:@"cell"];
+
+    // Create Table View Header
+
+    CommentsTableViewHeader *headerView = [[CommentsTableViewHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 150)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    headerView.mumble = mumble;
+    [headerView setLabelNames];
+    [self.tableView setTableHeaderView:headerView];
 }
 
-
-- (void) createTableView {
-    
-    CGRect window = [[UIScreen mainScreen] bounds];
-    
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height) style:UITableViewStylePlain];
-    
-    tableView.delegate = self;
-    
-    tableView.dataSource = self;
-    
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    tableView.separatorColor = [UIColor colorWithRed:0.875 green:0.875 blue:0.875 alpha:0.7];
-    
-    [self.view addSubview:tableView];
-    
-    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [tableView setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-        [tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -66,32 +72,24 @@
 
 - (UITableViewCell*) tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [table dequeueReusableCellWithIdentifier:@"Cell"];
+    CommentsTableViewCell *cell;
+
+    if (!cell){
+        cell = [[CommentsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
     
-    CommentsTableViewCell *cell = [[CommentsTableViewCell alloc] initWithFrame:CGRectZero];
-    
-    /*Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
-    
-    HomeCustomTBCell *cell = [[HomeCustomTBCell alloc] initWithFrame:CGRectZero];
-    
-    cell.mumble = mumble;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [cell createLabels];
-    
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }*/
+    // Cells must inherit the table view's transform
+    // This is very important, since the main table view may be inverted
+    cell.transform = self.tableView.transform;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-   // Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
-    
-    return 50.0;//mumble.cellHeight;
+
+    // Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
+
+    return 80.0;//mumble.cellHeight;
 }
 
 - (void) tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -108,5 +106,25 @@
     
     [super didReceiveMemoryWarning];
 }
+
+- (void)didPressRightButton:(id)sender {
+    
+    [super didPressRightButton:sender];
+    // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
+
+    // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
+    [self.textView refreshFirstResponder];
+
+}
+
+- (void)didCancelTextEditing:(id)sender
+{
+    // Notifies the view controller when tapped on the left "Cancel" button
+
+    [super didCancelTextEditing:sender];
+}
+
+
+
 
 @end

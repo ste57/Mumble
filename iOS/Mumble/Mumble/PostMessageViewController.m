@@ -18,7 +18,15 @@
     UILabel *charCounterlbl;
     
     UIPlaceHolderTextView *mumbleTextView, *locationTextView;
+    
+    NSString *userID;
+    
+    CLLocationManager *locationManager;
+    
+    CLLocation *userLocation;
 }
+
+@synthesize tagTitle;
 
 - (void) viewDidLoad {
     
@@ -26,7 +34,62 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self checkUserParseID];
+    
     [self createDisplay];
+    
+    [self initiateCoreLocation];
+    
+    [locationManager startUpdatingLocation];
+}
+
+- (void) initiateCoreLocation {
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    
+    PFQuery *query = [PFQuery queryWithClassName:USER_DATA_CLASS];
+    
+    [query getObjectInBackgroundWithId:userID block:^(PFObject *userPFObject, NSError *error) {
+        
+        PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude
+                                                      longitude:newLocation.coordinate.longitude];
+        
+        [userPFObject setObject:geoPoint forKey:USER_DATA_LOCATION];
+        [userPFObject saveInBackground];
+    }];
+    
+    userLocation = newLocation;
+    
+    [locationManager stopUpdatingLocation];
+}
+
+- (void) checkUserParseID {
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:USERID]) {
+        
+        PFObject *user = [PFObject objectWithClassName:USER_DATA_CLASS];
+        
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (succeeded) {
+                
+                userID = user.objectId;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:userID forKey:USERID];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }];
+        
+    } else {
+        
+        userID = [[NSUserDefaults standardUserDefaults] objectForKey:USERID];
+    }
 }
 
 - (void) createDisplay {
@@ -58,14 +121,15 @@
     
     [self.view addSubview:mumbleTextView];
     
+    [mumbleTextView setKeyboardType:UIKeyboardTypeTwitter];
+    
     [mumbleTextView becomeFirstResponder];
     
-    
-    // where are you? textview
+    // Tag View
     
     UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, 320, 44)];
     
-    toolBar.barTintColor = NAV_BAR_HEADER_COLOUR;//[UIColor whiteColor];
+    toolBar.barTintColor = NAV_BAR_HEADER_COLOUR;
     
     toolBar.translucent = NO;
     
@@ -77,78 +141,33 @@
     
     locationTextView.delegate = self;
     
-    locationTextView.textColor = [UIColor whiteColor];//[UIColor blackColor];
+    locationTextView.editable = NO;
     
-    locationTextView.placeholderColor = [UIColor whiteColor];//[UIColor lightGrayColor];
+    locationTextView.selectable = NO;
     
-    locationTextView.autocorrectionType = UITextAutocorrectionTypeNo;
+    locationTextView.textColor = [UIColor whiteColor];
     
-    locationTextView.placeholder = LOCATION_TEXTVIEW_PLACEHOLDER;
+    locationTextView.textAlignment = NSTextAlignmentCenter;
     
-    [toolBar setItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithCustomView:locationTextView]]];
+    locationTextView.font = [UIFont fontWithName:MUMBLE_FONT_NAME size:18.0];
     
-    mumbleTextView.inputAccessoryView = toolBar;
-}
-
-- (void) addLocationIdentifier:(UITextView*)textView {
+    locationTextView.placeholderColor = [UIColor whiteColor];
     
-    if (textView != mumbleTextView) {
+    if (tagTitle) {
+ 
+        [toolBar setItems:[NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithCustomView:locationTextView]]];
         
-        if (locationTextView.text.length < 1) {
-            
-            locationTextView.text = LOCATION_IDENTIFIER;
-            
-        }
+        mumbleTextView.inputAccessoryView = toolBar;
         
-        NSString *text = locationTextView.text;
-        
-        NSMutableAttributedString * string = [[NSMutableAttributedString alloc] initWithString:text];
-        
-        [string addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, LOCATION_IDENTIFIER.length)];
-        
-        [locationTextView setAttributedText:string];
-        
-        locationTextView.font = mumbleTextView.font;
-        
-        locationTextView.textColor = [UIColor whiteColor];
-        
-        
-        char firstChar = [locationTextView.text characterAtIndex:0];
-        
-        if (firstChar != '@') {
-            
-            NSString *someText = locationTextView.text;
-            NSRange range = NSMakeRange(0,0);
-            locationTextView.text = [someText stringByReplacingCharactersInRange:range withString:LOCATION_IDENTIFIER];
-        }
+        locationTextView.text = tagTitle;
     }
-}
-
-- (void) removeLocationIdentifier {
-    
-    if (locationTextView.text.length < 2) {
-        
-        locationTextView.text = @"";
-    }
-}
-
-- (void) textViewDidEndEditing:(UITextView *)textView {
-    
-    [self removeLocationIdentifier];
-}
-
-- (void) textViewDidBeginEditing:(UITextView *)textView {
-    
-    [self addLocationIdentifier:textView];
 }
 
 - (void) textViewDidChange:(UITextView *)textView {
     
-    [self addLocationIdentifier:textView];
+    charCounterlbl.text = [NSString stringWithFormat:@"%i", MUMBLE_CHARACTER_LIMIT - (int)mumbleTextView.text.length - (int)tagTitle.length];
     
-    charCounterlbl.text = [NSString stringWithFormat:@"%i", MUMBLE_CHARACTER_LIMIT - (int)mumbleTextView.text.length];
-    
-    if ((int)textView.text.length > MUMBLE_CHARACTER_LIMIT) {
+    if ((int)textView.text.length > MUMBLE_CHARACTER_LIMIT - (int)tagTitle.length) {
         
         charCounterlbl.textColor = [UIColor redColor];
         
@@ -193,25 +212,10 @@
         
     } else {
         
-        if (textView == mumbleTextView && [[mumbleTextView text] length] > (MUMBLE_CHARACTER_LIMIT - 1)) {
+        if (textView == mumbleTextView && [[mumbleTextView text] length] > (MUMBLE_CHARACTER_LIMIT - 1 - (int)tagTitle.length)) {
             
             return NO;
         }
-        
-        if (textView == locationTextView) {
-            
-            if ([[locationTextView text] length] > (LOCATION_CHARACTER_LIMIT)) {
-                
-                return NO;
-                
-            } else if (textView == locationTextView) {
-                
-                NSCharacterSet *alphaSet = [NSCharacterSet alphanumericCharacterSet];
-                BOOL valid = [[text stringByTrimmingCharactersInSet:alphaSet] isEqualToString:@""];
-                return valid;
-            }
-        }
-        
     }
     
     return YES;
@@ -238,13 +242,42 @@
 
 - (void) postMumble {
     
-    if ((mumbleTextView.text.length < MUMBLE_CHARACTER_LIMIT) && (mumbleTextView.text.length > 0) && (locationTextView.text.length > 1 || locationTextView.text.length == 0)) {
+    if ((mumbleTextView.text.length < (MUMBLE_CHARACTER_LIMIT - (int)tagTitle.length)) && (mumbleTextView.text.length > 0)) {
+
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        
+        NSArray *words = [mumbleTextView.text componentsSeparatedByString:@" "];
+        
+        for (NSString *word in words) {
+            
+            if ([word hasPrefix:TAG_IDENTIFIER]) {
+                
+                NSCharacterSet *charactersToRemove = [[ NSCharacterSet alphanumericCharacterSet ] invertedSet ];
+                
+                NSString *trimmedReplacement = [ word stringByTrimmingCharactersInSet:charactersToRemove ];
+                
+                [array addObject:[NSString stringWithFormat:@"@%@", trimmedReplacement]];
+            }
+        }
+        
+        if (tagTitle) {
+            
+            [array addObject:tagTitle];
+            mumbleTextView.text = [NSString stringWithFormat:@"%@ %@", mumbleTextView.text, tagTitle];
+        }
         
         PFObject *mumble = [PFObject objectWithClassName:MUMBLE_DATA_CLASS];
         
         [mumble setObject:mumbleTextView.text forKey:MUMBLE_DATA_CLASS_CONTENT];
+
+        [mumble setObject:array forKey:MUMBLE_DATA_TAGS];
         
-        [mumble setObject:locationTextView.text forKey:MUMBLE_DATA_MSG_LOCATION];
+        [mumble setObject:IPHONE_IDENTIFIER_TAG forKey:MUMBLE_DATA_PHONE_TYPE];
+        
+        PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:userLocation.coordinate.latitude
+                                                      longitude:userLocation.coordinate.longitude];
+        
+        [mumble setObject:geoPoint forKey:MUMBLE_DATA_LOCATION];
         
         [mumble setObject:[[NSUserDefaults standardUserDefaults] objectForKey:USERID] forKey:MUMBLE_DATA_USER];
         
@@ -275,7 +308,7 @@
     
     charCounterlbl.center = CGPointMake(self.view.frame.size.width - 90.0, 50.0);
     
-    charCounterlbl.text = [NSString stringWithFormat:@"%i", MUMBLE_CHARACTER_LIMIT];
+    charCounterlbl.text = [NSString stringWithFormat:@"%i", MUMBLE_CHARACTER_LIMIT - (int)tagTitle.length];
     
     charCounterlbl.font = [UIFont fontWithName:MUMBLE_FONT_NAME size:16.0];
     
@@ -303,7 +336,6 @@
 
 - (void) closeView {
     
-    [locationTextView resignFirstResponder];
     [mumbleTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

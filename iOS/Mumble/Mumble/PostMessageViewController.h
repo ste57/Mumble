@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface PostMessageViewController : UIViewController <UITextViewDelegate>
+@interface PostMessageViewController : UIViewController <UITextViewDelegate, CLLocationManagerDelegate>
+
+@property (strong, nonatomic) NSString *tagTitle;
 
 @end

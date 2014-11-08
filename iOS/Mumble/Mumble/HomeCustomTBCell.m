@@ -10,14 +10,13 @@
 #import "UIButton+Extensions.h"
 #import "Config.h"
 #import <Parse/Parse.h>
+#import "STTweetLabel.h"
 
 @implementation HomeCustomTBCell {
     
     UIButton *heartImg, *commentImg;
     NSMutableArray *likedMumbles;
     UILabel *heartLabel, *commentsLabel;
-    
-    
 }
 
 @synthesize mumble;
@@ -41,34 +40,17 @@
     double overallOpacity = 0.75;
     double timeOpacity = 0.75;
     
-    UITextView *contentTextView = [[UITextView alloc] init];
-    contentTextView.textAlignment = NSTextAlignmentLeft;
-    contentTextView.textColor = [UIColor blackColor];
-    contentTextView.editable = NO;
-    contentTextView.selectable = NO;
-    contentTextView.scrollEnabled = NO;
+    STTweetLabel *contentLabel = [[STTweetLabel alloc] init];
+    [contentLabel setText:mumble.content];
+    [contentLabel setTextAlignment:NSTextAlignmentLeft];
+    [contentLabel setTranslatesAutoresizingMaskIntoConstraints:false];
     
-    NSString *text = [NSString stringWithFormat:@"%@ %@", mumble.content, mumble.msgLocation];
-    
-    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:text];
-    
-    NSArray *words = [text componentsSeparatedByString:@" "];
-    
-    for (NSString *word in words) {
+    [contentLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
         
-        if ([word hasPrefix:@"@"]) {
-            
-            NSRange range = [text rangeOfString:word];
-            [string addAttribute:NSForegroundColorAttributeName value:NAV_BAR_COLOUR range:range];
-        }
-    }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TAG_PRESSED object:string];
+    }];
     
-    [contentTextView setAttributedText:string];
-
-    contentTextView.font = MUMBLE_CONTENT_TEXT_FONT;
-
-    [contentTextView setTranslatesAutoresizingMaskIntoConstraints:false];
-    [self.contentView addSubview:contentTextView];
+    [self.contentView addSubview:contentLabel];
     
     
     UIImageView *timeImg = [[UIImageView alloc] init];
@@ -141,7 +123,7 @@
         //commentImg.alpha = 0;
     }
 
-    NSDictionary *views = @{@"content": contentTextView,
+    NSDictionary *views = @{@"content": contentLabel,
                             @"timeImg": timeImg,
                             @"timeLabel": timeLabel,
                             @"heartImg": heartImg,
@@ -244,8 +226,11 @@
     
     [query getObjectInBackgroundWithId:mumble.objectId block:^(PFObject *mumblePFObject, NSError *error) {
         
-        [mumblePFObject incrementKey:MUMBLE_DATA_LIKES byAmount:[NSNumber numberWithInt:-1]];
-        [mumblePFObject saveEventually];
+        if (mumble.likes > 0) {
+        
+            [mumblePFObject incrementKey:MUMBLE_DATA_LIKES byAmount:[NSNumber numberWithInt:-1]];
+            [mumblePFObject saveEventually];
+        }
     }];
 
     [likedMumbles removeObject:mumble.objectId];

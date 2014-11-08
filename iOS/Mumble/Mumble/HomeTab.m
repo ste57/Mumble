@@ -13,6 +13,7 @@
 #import "Mumble.h"
 #import "NSDate+DateTools.h"
 #import "CommentsViewController.h"
+#import "TagPressedViewController.h"
 
 #define TITLE @"New"
 #define TAB_TITLE @"Home"
@@ -20,7 +21,8 @@
 
 @implementation HomeTab {
     
-    NSMutableArray *Mumbles;
+    NSMutableArray *mumbles;
+    NSArray *searchResults;
     UITableView *tableView;
     
     UIRefreshControl *refreshControl;
@@ -30,7 +32,16 @@
     
     UIView *navBarBanner;
     
+    CLLocationManager *locationManager;
+    
     BOOL hidden;
+    
+    NSString *userID;
+    
+    PFGeoPoint *userGeoPoint;
+    
+    UISearchBar *searchBar;
+    UISearchDisplayController *searchBarController;
 }
 
 - (void) checkUserParseID {
@@ -43,10 +54,16 @@
             
             if (succeeded) {
                 
-                [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:USERID];
+                userID = user.objectId;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:userID forKey:USERID];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }];
+        
+    } else {
+        
+        userID = [[NSUserDefaults standardUserDefaults] objectForKey:USERID];
     }
 }
 
@@ -66,16 +83,94 @@
     
     [self createTableView];
     
+    [self createSearchBar];
+    
+    [self setNotificationObservers];
+    
+    [self initiateCoreLocation];
+    
+    [locationManager startUpdatingLocation];
+}
+
+- (void) createSearchBar {
+    
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    searchBar.delegate = self;
+    
+    searchBar.placeholder = SEARCH_BAR_PLACEHOLDER;
+    searchBar.showsCancelButton = YES;
+    
+    searchBarController = [[UISearchDisplayController alloc]
+                           initWithSearchBar:searchBar
+                           contentsController:self];
+    
+    searchBarController.delegate = self;
+    searchBarController.searchResultsDataSource = self;
+    searchBarController.searchResultsDelegate = self;
+}
+
+- (void) initiateCoreLocation {
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    
+    PFQuery *query = [PFQuery queryWithClassName:USER_DATA_CLASS];
+    
+    [query getObjectInBackgroundWithId:userID block:^(PFObject *userPFObject, NSError *error) {
+        
+        PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude
+                                                      longitude:newLocation.coordinate.longitude];
+        
+        [userPFObject setObject:geoPoint forKey:USER_DATA_LOCATION];
+        [userPFObject saveInBackground];
+    }];
+    
+    userGeoPoint = [PFGeoPoint geoPointWithLatitude:newLocation.coordinate.latitude
+                                          longitude:newLocation.coordinate.longitude];
+    
+    [locationManager stopUpdatingLocation];
+    
     [self retrieveMumbleData];
+}
+
+- (void) setNotificationObservers {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(retrieveMumbleData) name:REFRESH_TABLEVIEW object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showComments:) name:COMMENTS_PRESSED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tagPressed:) name:TAG_PRESSED object:nil];
+}
+
+- (void) tagPressed:(NSNotification*)notification {
+    
+    NSString *tag = [notification object];
+    
+    if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+        
+        [self contract];
+        
+        TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
+        
+        tagPressedVC.title = tag;
+        
+        tagPressedVC.view.backgroundColor = [UIColor whiteColor];
+        
+        [self.navigationController pushViewController:tagPressedVC animated:YES];
+    }
 }
 
 - (void) showComments:(NSNotification*)notification {
     
     [self contract];
-
+    
     Mumble *mumble = [notification object];
     
     CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
@@ -94,21 +189,183 @@
     self.navigationItem.rightBarButtonItem = postButton;
     
     // Search Location
-    UIBarButtonItem *locationButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(searchLocation)];
-    [locationButton setImage:[UIImage imageNamed:@"location"]];
+    /* UIBarButtonItem *locationButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(searchLocation)];
+     [locationButton setImage:[UIImage imageNamed:@"location"]];
+     
+     self.navigationItem.leftBarButtonItem = locationButton;*/
     
-    self.navigationItem.leftBarButtonItem = locationButton;
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchLocation)];
+    
+    self.navigationItem.leftBarButtonItem = searchButton;
 }
 
 - (void) postMessage {
     
-    navBarBanner.hidden = YES;
+    [navBarBanner removeFromSuperview];
     PostMessageViewController *post = [[PostMessageViewController alloc] init];
     [self presentViewController:post animated:YES completion:nil];
 }
 
 - (void) searchLocation {
     
+    tableView.tableHeaderView = searchBar;
+    
+    searchResults = [[NSArray alloc] init];
+    
+    [searchBarController setActive:YES animated:YES];
+    [searchBar becomeFirstResponder];
+    
+    [self expand];
+}
+
+- (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    
+    [self searchBarCancelButtonClicked:searchBar];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)theSearchBar {
+    
+    tableView.tableHeaderView = NULL;
+    searchResults = [[NSArray alloc] init];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
+    
+    [self searchForTag];
+}
+
+- (void) searchBarTextDidBeginEditing:(UISearchBar *)searchBarItem {
+    
+    if (searchBar.text.length < 1) {
+        
+        searchBar.text = TAG_IDENTIFIER;
+        
+        [self getPopularTags];
+    }
+}
+
+- (void) getPopularTags {
+    
+    PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
+    
+    [query setLimit:POPULAR_TAG_LIMIT];
+    
+    [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
+    
+    [query orderByDescending:[NSString stringWithFormat:@"createdAt"]];
+    
+    [query selectKeys:@[MUMBLE_DATA_TAGS]];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
+    searchResults = [[NSArray alloc] init];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        for (PFObject *object in objects) {
+            
+            [array addObjectsFromArray:object[MUMBLE_DATA_TAGS]];
+        }
+        
+        for (NSString *string in array) {
+            
+            if ([dictionary objectForKey:string]) {
+                
+                NSInteger number = [[dictionary objectForKey:string] integerValue];
+                number++;
+                [dictionary setObject:[NSNumber numberWithInteger:number] forKey:string];
+                
+            } else {
+                
+                [dictionary setValue:[NSNumber numberWithInteger:0] forKey:string];
+            }
+        }
+        
+        searchResults = [dictionary keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+            
+            if ([obj1 integerValue] > [obj2 integerValue]) {
+                
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            if ([obj1 integerValue] < [obj2 integerValue]) {
+                
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            
+            return (NSComparisonResult)NSOrderedSame;
+        }];
+        
+        [[searchBarController searchResultsTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }];
+}
+
+- (void) searchBar:(UISearchBar *)searchBarItem textDidChange:(NSString *)searchText {
+    
+    if (searchBar.text.length == 1) {
+        
+        [self getPopularTags];
+    }
+    
+    if (searchBar.text.length < 1) {
+        
+        searchBar.text = TAG_IDENTIFIER;
+        
+    } else {
+        
+        [self searchForTag];
+    }
+}
+
+- (void) searchForTag {
+    
+    if (searchBar.text.length > 1) {
+        
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        
+        searchResults = [[NSArray alloc] init];
+        
+        PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
+        
+        [query setLimit:20];
+        
+        [query selectKeys:@[MUMBLE_DATA_TAGS]];
+        
+        [query whereKey:MUMBLE_DATA_TAGS equalTo:searchBar.text];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            for (PFObject *object in objects) {
+                
+                NSArray *arr = object[MUMBLE_DATA_TAGS];
+                
+                for (NSString *string in arr) {
+                    
+                    if ([string isEqual:searchBar.text]) {
+                        
+                        [array addObject:string];
+                    }
+                }
+            }
+            
+            NSMutableArray * unique = [NSMutableArray array];
+            NSMutableSet * processed = [NSMutableSet set];
+            
+            for (NSString * string in array) {
+                
+                if ([processed containsObject:string] == NO) {
+                    [unique addObject:string];
+                    [processed addObject:string];
+                }
+            }
+            
+            searchResults = unique;
+            
+            [[searchBarController searchResultsTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+        }];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -117,6 +374,11 @@
     navBarBanner.backgroundColor = NAV_BAR_HEADER_COLOUR;
     
     [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
+    
+    if (userGeoPoint) {
+        
+        [self retrieveMumbleData];
+    }
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -133,15 +395,17 @@
     
     PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
     
-    [query orderByDescending:@"createdAt"];
-   
     [query setLimit:MAX_MUMBLES_ONSCREEN];
+    
+    [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
+    
+    [query orderByDescending:[NSString stringWithFormat:@"createdAt,%@", MUMBLE_DATA_LOCATION]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
             
-            Mumbles = [[NSMutableArray alloc] init];
+            mumbles = [[NSMutableArray alloc] init];
             
             Mumble *mumble;
             
@@ -150,17 +414,17 @@
                 mumble = [[Mumble alloc] init];
                 
                 mumble.objectId = object.objectId;
-                mumble.content = object[MUMBLE_DATA_CLASS_CONTENT];
-                mumble.msgLocation = object[MUMBLE_DATA_MSG_LOCATION];
+                
+                mumble.tags = object[MUMBLE_DATA_TAGS];
+                
+                mumble.content = [NSString stringWithFormat:@"%@", object[MUMBLE_DATA_CLASS_CONTENT]];
                 
                 /////// calculate mumble height
                 
-                NSString *text = [NSString stringWithFormat:@"%@ %@", mumble.content, mumble.msgLocation];
-                
                 CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
                 
-                CGSize size = [text boundingRectWithSize: constraint options: NSStringDrawingUsesLineFragmentOrigin
-                                              attributes: @{ NSFontAttributeName: MUMBLE_CONTENT_TEXT_FONT} context: nil].size;
+                CGSize size = [mumble.content boundingRectWithSize: constraint options: NSStringDrawingUsesLineFragmentOrigin
+                                                        attributes: @{ NSFontAttributeName: MUMBLE_CONTENT_TEXT_FONT} context: nil].size;
                 
                 mumble.cellHeight = HOME_TBCELL_DEFAULT_HEIGHT + size.height;
                 
@@ -172,7 +436,7 @@
                 
                 mumble.comments = [object[MUMBLE_DATA_COMMENTS] longValue];
                 
-                [Mumbles addObject:mumble];
+                [mumbles addObject:mumble];
             }
             
             [self refreshTable];
@@ -230,42 +494,97 @@
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
     
-    return Mumbles.count;
+    if (table == tableView) {
+        
+        return mumbles.count;
+        
+    } else {
+        
+        return searchResults.count;
+    }
 }
 
 - (UITableViewCell*) tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [table dequeueReusableCellWithIdentifier:@"Cell"];
     
-    Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
-    
-    HomeCustomTBCell *cell = [[HomeCustomTBCell alloc] initWithFrame:CGRectZero];
-    
-    cell.mumble = mumble;
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [cell createLabels];
-    
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
+    if (table == tableView) {
+        
+        Mumble *mumble = [mumbles objectAtIndex:indexPath.row];
+        
+        HomeCustomTBCell *cell = [[HomeCustomTBCell alloc] initWithFrame:CGRectZero];
+        
+        cell.mumble = mumble;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell createLabels];
+        
+        if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+            [cell setLayoutMargins:UIEdgeInsetsZero];
+        }
+        
+        return cell;
+        
+    } else {
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+        
+        cell.textLabel.text = [searchResults objectAtIndex:indexPath.row];
+        
+        cell.textLabel.textColor = NAV_BAR_COLOUR;
+        
+        return cell;
     }
-    
-    return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)table heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Mumble *mumble = [Mumbles objectAtIndex:indexPath.row];
-    
-    return mumble.cellHeight;
+    if (table == tableView) {
+        
+        Mumble *mumble = [mumbles objectAtIndex:indexPath.row];
+        
+        return mumble.cellHeight;
+        
+    } else {
+        
+        return 50.0;
+    }
 }
 
 - (void) tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [table deselectRowAtIndexPath:indexPath animated:NO];
+    if (table == tableView) {
+        
+        [self contract];
+        
+        Mumble *mumble = [mumbles objectAtIndex:indexPath.row];
+        
+        CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
+        
+        commentsVC.mumble = mumble;
+        
+        [self.navigationController pushViewController:commentsVC animated:YES];
+        
+    } else {
+        
+        NSString *tag = [searchResults objectAtIndex:indexPath.row];
+        
+        if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+            
+            [self contract];
+            
+            TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
+            
+            tagPressedVC.title = tag;
+            
+            tagPressedVC.view.backgroundColor = [UIColor whiteColor];
+            
+            [self.navigationController pushViewController:tagPressedVC animated:YES];
+        }
+    }
 }
 
 - (void) tableView:(UITableView *)table moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
@@ -283,28 +602,36 @@
 
 - (void) expand {
     
-    if(hidden)
-        return;
-    
-    hidden = YES;
-
-    [self.tabBarController setTabBarHidden:YES
-                                  animated:YES];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    if ([[searchBarController searchResultsTableView] isHidden]) {
+        
+        if(hidden)
+            return;
+        
+        hidden = YES;
+        
+        [self.tabBarController setTabBarHidden:YES
+                                      animated:YES];
+        
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        
+    }
 }
 
 - (void) contract {
     
-    if(!hidden)
-        return;
-    
-    hidden = NO;
-    
-    [self.tabBarController setTabBarHidden:NO
-                                  animated:YES];
-    
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if ([[searchBarController searchResultsTableView] isHidden]) {
+        
+        if(!hidden)
+            return;
+        
+        hidden = NO;
+        
+        [self.tabBarController setTabBarHidden:NO
+                                      animated:YES];
+        
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
+    }
 }
 
 #pragma mark -
