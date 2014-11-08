@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E1ECE3E1A0A662A00F839D9 /* UIScrollView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE2E1A0A662A00F839D9 /* UIScrollView+SLKAdditions.m */; };
+		4E1ECE3F1A0A662A00F839D9 /* UITextView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE301A0A662A00F839D9 /* UITextView+SLKAdditions.m */; };
+		4E1ECE401A0A662A00F839D9 /* UIView+SLKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE321A0A662A00F839D9 /* UIView+SLKAdditions.m */; };
+		4E1ECE411A0A662A00F839D9 /* SLKInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE351A0A662A00F839D9 /* SLKInputAccessoryView.m */; };
+		4E1ECE421A0A662A00F839D9 /* SLKTextInputbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE371A0A662A00F839D9 /* SLKTextInputbar.m */; };
+		4E1ECE431A0A662A00F839D9 /* SLKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE391A0A662A00F839D9 /* SLKTextView.m */; };
+		4E1ECE441A0A662A00F839D9 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE3B1A0A662A00F839D9 /* SLKTextViewController.m */; };
+		4E1ECE451A0A662A00F839D9 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE3D1A0A662A00F839D9 /* SLKTypingIndicatorView.m */; };
+		4E1ECE481A0A6FC000F839D9 /* CommentsTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */; };
 		DC32BAD819FDB7F100B47A73 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = DC32BAD719FDB7F100B47A73 /* Comment.m */; };
 		DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4B822719F2C82A0095D419 /* HomeTab.m */; };
 		DC578C4719F30E20003747AB /* Mumble.m in Sources */ = {isa = PBXBuildFile; fileRef = DC578C4619F30E20003747AB /* Mumble.m */; };
@@ -68,6 +77,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E1ECE2C1A0A662A00F839D9 /* SLKUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKUIConstants.h; sourceTree = "<group>"; };
+		4E1ECE2D1A0A662A00F839D9 /* UIScrollView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SLKAdditions.h"; sourceTree = "<group>"; };
+		4E1ECE2E1A0A662A00F839D9 /* UIScrollView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SLKAdditions.m"; sourceTree = "<group>"; };
+		4E1ECE2F1A0A662A00F839D9 /* UITextView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+SLKAdditions.h"; sourceTree = "<group>"; };
+		4E1ECE301A0A662A00F839D9 /* UITextView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+SLKAdditions.m"; sourceTree = "<group>"; };
+		4E1ECE311A0A662A00F839D9 /* UIView+SLKAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SLKAdditions.h"; sourceTree = "<group>"; };
+		4E1ECE321A0A662A00F839D9 /* UIView+SLKAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SLKAdditions.m"; sourceTree = "<group>"; };
+		4E1ECE341A0A662A00F839D9 /* SLKInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKInputAccessoryView.h; sourceTree = "<group>"; };
+		4E1ECE351A0A662A00F839D9 /* SLKInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKInputAccessoryView.m; sourceTree = "<group>"; };
+		4E1ECE361A0A662A00F839D9 /* SLKTextInputbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextInputbar.h; sourceTree = "<group>"; };
+		4E1ECE371A0A662A00F839D9 /* SLKTextInputbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextInputbar.m; sourceTree = "<group>"; };
+		4E1ECE381A0A662A00F839D9 /* SLKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextView.h; sourceTree = "<group>"; };
+		4E1ECE391A0A662A00F839D9 /* SLKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextView.m; sourceTree = "<group>"; };
+		4E1ECE3A1A0A662A00F839D9 /* SLKTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTextViewController.h; sourceTree = "<group>"; };
+		4E1ECE3B1A0A662A00F839D9 /* SLKTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTextViewController.m; sourceTree = "<group>"; };
+		4E1ECE3C1A0A662A00F839D9 /* SLKTypingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLKTypingIndicatorView.h; sourceTree = "<group>"; };
+		4E1ECE3D1A0A662A00F839D9 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTypingIndicatorView.m; sourceTree = "<group>"; };
+		4E1ECE461A0A6FC000F839D9 /* CommentsTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsTableViewHeader.h; sourceTree = "<group>"; };
+		4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewHeader.m; sourceTree = "<group>"; };
 		DC32BAD619FDB7F100B47A73 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		DC32BAD719FDB7F100B47A73 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		DC4B822619F2C82A0095D419 /* HomeTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTab.h; sourceTree = "<group>"; };
@@ -188,6 +216,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E1ECE2A1A0A662A00F839D9 /* SlackTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E1ECE2B1A0A662A00F839D9 /* Additions */,
+				4E1ECE331A0A662A00F839D9 /* Classes */,
+			);
+			path = SlackTextViewController;
+			sourceTree = "<group>";
+		};
+		4E1ECE2B1A0A662A00F839D9 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				4E1ECE2C1A0A662A00F839D9 /* SLKUIConstants.h */,
+				4E1ECE2D1A0A662A00F839D9 /* UIScrollView+SLKAdditions.h */,
+				4E1ECE2E1A0A662A00F839D9 /* UIScrollView+SLKAdditions.m */,
+				4E1ECE2F1A0A662A00F839D9 /* UITextView+SLKAdditions.h */,
+				4E1ECE301A0A662A00F839D9 /* UITextView+SLKAdditions.m */,
+				4E1ECE311A0A662A00F839D9 /* UIView+SLKAdditions.h */,
+				4E1ECE321A0A662A00F839D9 /* UIView+SLKAdditions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		4E1ECE331A0A662A00F839D9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4E1ECE341A0A662A00F839D9 /* SLKInputAccessoryView.h */,
+				4E1ECE351A0A662A00F839D9 /* SLKInputAccessoryView.m */,
+				4E1ECE361A0A662A00F839D9 /* SLKTextInputbar.h */,
+				4E1ECE371A0A662A00F839D9 /* SLKTextInputbar.m */,
+				4E1ECE381A0A662A00F839D9 /* SLKTextView.h */,
+				4E1ECE391A0A662A00F839D9 /* SLKTextView.m */,
+				4E1ECE3A1A0A662A00F839D9 /* SLKTextViewController.h */,
+				4E1ECE3B1A0A662A00F839D9 /* SLKTextViewController.m */,
+				4E1ECE3C1A0A662A00F839D9 /* SLKTypingIndicatorView.h */,
+				4E1ECE3D1A0A662A00F839D9 /* SLKTypingIndicatorView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		DC4B822519F2C7B10095D419 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,12 +384,21 @@
 		DCA398C01A07F4AA00D89A88 /* Comments */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				DC73486F1A0A9AF3009AE6DC /* CommentsTableViewCell.h */,
 				DC7348701A0A9AF3009AE6DC /* CommentsTableViewCell.m */,
 				DC7348711A0A9AF3009AE6DC /* CommentsTableViewHeader.h */,
 				DC7348721A0A9AF3009AE6DC /* CommentsTableViewHeader.m */,
 				DC7348731A0A9AF3009AE6DC /* CommentsViewController.h */,
 				DC7348741A0A9AF3009AE6DC /* CommentsViewController.m */,
+=======
+				DCA398BD1A07579100D89A88 /* CommentsViewController.h */,
+				DCA398BE1A07579100D89A88 /* CommentsViewController.m */,
+				DCA398C11A07F4C500D89A88 /* CommentsTableViewCell.h */,
+				DCA398C21A07F4C500D89A88 /* CommentsTableViewCell.m */,
+				4E1ECE461A0A6FC000F839D9 /* CommentsTableViewHeader.h */,
+				4E1ECE471A0A6FC000F839D9 /* CommentsTableViewHeader.m */,
+>>>>>>> FETCH_HEAD
 			);
 			name = Comments;
 			sourceTree = "<group>";
@@ -399,7 +476,11 @@
 		DCFA060E19F8992400280342 /* Help Files */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				DCA398C41A090E5400D89A88 /* STTweetLabel */,
+=======
+				4E1ECE2A1A0A662A00F839D9 /* SlackTextViewController */,
+>>>>>>> FETCH_HEAD
 				DCA398B81A073B4900D89A88 /* ExtendedTouchButton */,
 				DCCA03D71A055D1B0077D7FB /* UIPlaceHolderTextView */,
 				DCFA064119F8C6DC00280342 /* Hide Nav Bars */,
@@ -489,10 +570,11 @@
 				TargetAttributes = {
 					DC838F2319F29BD10077E010 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 49MJRZBUY4;
+						DevelopmentTeam = 3XXD9JUN7B;
 					};
 					DC838F3C19F29BD20077E010 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 3XXD9JUN7B;
 						TestTargetID = DC838F2319F29BD10077E010;
 					};
 				};
@@ -541,6 +623,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC838F2D19F29BD10077E010 /* AppDelegate.m in Sources */,
+				4E1ECE421A0A662A00F839D9 /* SLKTextInputbar.m in Sources */,
+				4E1ECE431A0A662A00F839D9 /* SLKTextView.m in Sources */,
 				DC838F2A19F29BD10077E010 /* main.m in Sources */,
 				DCA63CAE1A0A98E20008BA17 /* UITextView+SLKAdditions.m in Sources */,
 				DC7348751A0A9AF3009AE6DC /* CommentsTableViewCell.m in Sources */,
@@ -551,11 +635,19 @@
 				DC7348771A0A9AF3009AE6DC /* CommentsViewController.m in Sources */,
 				DCA398C91A090E5400D89A88 /* STTweetLabel.m in Sources */,
 				DCA398BC1A073B7B00D89A88 /* UIButton+Extensions.m in Sources */,
+				4E1ECE481A0A6FC000F839D9 /* CommentsTableViewHeader.m in Sources */,
+				4E1ECE451A0A662A00F839D9 /* SLKTypingIndicatorView.m in Sources */,
+				4E1ECE3F1A0A662A00F839D9 /* UITextView+SLKAdditions.m in Sources */,
 				DCFA063F19F8C6D100280342 /* UITabBarController+hidable.m in Sources */,
 				DCFA063719F8AB7400280342 /* DTError.m in Sources */,
 				DCCA03DA1A055D320077D7FB /* UIPlaceHolderTextView.m in Sources */,
+<<<<<<< HEAD
 				DCA63CB01A0A98E20008BA17 /* SLKInputAccessoryView.m in Sources */,
 				DCA63CB11A0A98E20008BA17 /* SLKTextInputbar.m in Sources */,
+=======
+				4E1ECE3E1A0A662A00F839D9 /* UIScrollView+SLKAdditions.m in Sources */,
+				4E1ECE411A0A662A00F839D9 /* SLKInputAccessoryView.m in Sources */,
+>>>>>>> FETCH_HEAD
 				DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */,
 				DCA63CB21A0A98E20008BA17 /* SLKTextView.m in Sources */,
 				DC32BAD819FDB7F100B47A73 /* Comment.m in Sources */,
@@ -563,12 +655,21 @@
 				DCA63CAF1A0A98E20008BA17 /* UIView+SLKAdditions.m in Sources */,
 				DCFA063B19F8AB7400280342 /* DTTimePeriodGroup.m in Sources */,
 				DCFA063A19F8AB7400280342 /* DTTimePeriodCollection.m in Sources */,
+<<<<<<< HEAD
 				DCA63CAD1A0A98E20008BA17 /* UIScrollView+SLKAdditions.m in Sources */,
 				DCFA063C19F8AB7400280342 /* NSDate+DateTools.m in Sources */,
 				DCCA03D61A05472C0077D7FB /* PostMessageViewController.m in Sources */,
 				DC7348761A0A9AF3009AE6DC /* CommentsTableViewHeader.m in Sources */,
 				DCA398CA1A090E5400D89A88 /* STTweetTextStorage.m in Sources */,
 				DCA398CE1A09219500D89A88 /* TagPressedViewController.m in Sources */,
+=======
+				DCA398C31A07F4C500D89A88 /* CommentsTableViewCell.m in Sources */,
+				4E1ECE401A0A662A00F839D9 /* UIView+SLKAdditions.m in Sources */,
+				DCFA063C19F8AB7400280342 /* NSDate+DateTools.m in Sources */,
+				DCCA03D61A05472C0077D7FB /* PostMessageViewController.m in Sources */,
+				DCA398BF1A07579100D89A88 /* CommentsViewController.m in Sources */,
+				4E1ECE441A0A662A00F839D9 /* SLKTextViewController.m in Sources */,
+>>>>>>> FETCH_HEAD
 				DC6E813319F2F9E500E084AC /* HomeCustomTBCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

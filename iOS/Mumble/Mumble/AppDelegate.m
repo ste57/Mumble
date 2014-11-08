@@ -7,13 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "CommentsViewController.h"
 #import <Parse/Parse.h>
 #import "HomeTab.h"
 #import "Config.h"
 
 @implementation AppDelegate {
     
-    HomeTab *home;
+    //HomeTab *home;
+    CommentsViewController *home;
     
     UITabBarController *tabBar;
     NSMutableArray *tabArray;
@@ -56,7 +58,7 @@
 
 - (void) addHomeTab {
     
-    home = [[HomeTab alloc] init];
+    home = [[CommentsViewController alloc] init];
     [self addNavigationBar:home];
 }
 

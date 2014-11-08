@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+<<<<<<< HEAD
 #import "Mumble.h"
+=======
+>>>>>>> FETCH_HEAD
 
 @interface CommentsTableViewHeader : UIView
 
@@ -16,8 +19,11 @@
 @property (nonatomic) UITextView *postLabel;
 @property (nonatomic) UIButton *heartImg;
 @property (nonatomic) UILabel *heartLabel;
+<<<<<<< HEAD
 @property (nonatomic) Mumble *mumble;
 
 - (void) setLabelNames;
+=======
+>>>>>>> FETCH_HEAD
 
 @end
