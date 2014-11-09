@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrendingTabViewController : UIViewController
+@interface TrendingTabViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end

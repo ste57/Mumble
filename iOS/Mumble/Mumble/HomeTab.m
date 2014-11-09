@@ -40,6 +40,8 @@
     UISearchDisplayController *searchBarController;
 }
 
+@synthesize isMainViewController, showHot, showNew;
+
 - (void) checkUserParseID {
     
     if (![[NSUserDefaults standardUserDefaults] objectForKey:USERID]) {
@@ -69,8 +71,6 @@
     
     [self checkUserParseID];
     
-    self.navigationItem.title = HOME_TAB_TITLE;
-    
     [self removeBackButtonText];
     
     [self addNavigationBarItems];
@@ -93,6 +93,8 @@
     
     searchBar.placeholder = SEARCH_BAR_PLACEHOLDER;
     searchBar.showsCancelButton = YES;
+    
+    searchBar.hidden = YES;
     
     searchBarController = [[UISearchDisplayController alloc]
                            initWithSearchBar:searchBar
@@ -144,20 +146,23 @@
 }
 
 - (void) tagPressed:(NSNotification*)notification {
-    
-    NSString *tag = [notification object];
-    
-    if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+
+    if (self.tabBarController.selectedIndex == HOME_INDEX) {
         
-        [self contract];
+        NSString *tag = [notification object];
         
-        TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
-        
-        tagPressedVC.title = tag;
-        
-        tagPressedVC.view.backgroundColor = [UIColor whiteColor];
-        
-        [self.navigationController pushViewController:tagPressedVC animated:YES];
+        if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+            
+            [self contract];
+            
+            TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
+            
+            tagPressedVC.title = tag;
+            
+            tagPressedVC.view.backgroundColor = [UIColor whiteColor];
+            
+            [self.navigationController pushViewController:tagPressedVC animated:YES];
+        }
     }
 }
 
@@ -194,15 +199,19 @@
 }
 
 - (void) postMessage {
-    
-    [navBarBanner removeFromSuperview];
+
+    [navBarBanner performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:NO];
     PostMessageViewController *post = [[PostMessageViewController alloc] init];
     [self presentViewController:post animated:YES completion:nil];
 }
 
 - (void) searchLocation {
     
+    searchBar.hidden = NO;
+    
     tableView.tableHeaderView = searchBar;
+    
+    self.navigationController.navigationBarHidden = YES;
     
     searchResults = [[NSArray alloc] init];
     
@@ -218,6 +227,9 @@
 }
 
 - (void) searchBarCancelButtonClicked:(UISearchBar *)theSearchBar {
+    
+    searchBar.hidden = YES;
+    self.navigationController.navigationBarHidden = NO;
     
     tableView.tableHeaderView = NULL;
     searchResults = [[NSArray alloc] init];
@@ -364,10 +376,13 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     
-    navBarBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
-    navBarBanner.backgroundColor = NAV_BAR_HEADER_COLOUR;
+    if (isMainViewController) {
     
-    [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
+        navBarBanner = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
+        navBarBanner.backgroundColor = NAV_BAR_HEADER_COLOUR;
+    
+        [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
+    }
     
     if (userGeoPoint) {
         
@@ -377,7 +392,9 @@
 
 - (void) viewDidDisappear:(BOOL)animated {
     
-    [navBarBanner removeFromSuperview];
+    if (isMainViewController) {
+        [navBarBanner removeFromSuperview];
+    }
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
@@ -390,10 +407,19 @@
     PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
     
     [query setLimit:MAX_MUMBLES_ONSCREEN];
-    
-    [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
-    
-    [query orderByDescending:[NSString stringWithFormat:@"createdAt,%@", MUMBLE_DATA_LOCATION]];
+
+    if (showNew) {
+        
+        [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
+        
+        [query orderByDescending:[NSString stringWithFormat:@"createdAt,%@", MUMBLE_DATA_LOCATION]];
+        
+    } else if (showHot) {
+
+        [query orderByDescending:[NSString stringWithFormat:@"%@,createdAt", MUMBLE_DATA_LIKES]];
+        
+        [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
+    }
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
@@ -596,7 +622,7 @@
 
 - (void) expand {
     
-    if ([[searchBarController searchResultsTableView] isHidden]) {
+    if ([searchBar isHidden]) {
         
         if(hidden)
             return;
@@ -613,7 +639,7 @@
 
 - (void) contract {
     
-    if ([[searchBarController searchResultsTableView] isHidden]) {
+    if ([searchBar isHidden]) {
         
         if(!hidden)
             return;

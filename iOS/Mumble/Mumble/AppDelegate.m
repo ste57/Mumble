@@ -12,12 +12,15 @@
 #import "TrendingTabViewController.h"
 #import "MeTabViewController.h"
 #import "Config.h"
+#import "XHTwitterPaggingViewer.h"
+#import "HotTagsViewController.h"
 
 @implementation AppDelegate {
     
     HomeTab *home;
     TrendingTabViewController *trendingVC;
     MeTabViewController *meVC;
+    HotTagsViewController *hotTagsVC;
     
     UITabBarController *tabBar;
     NSMutableArray *tabArray;
@@ -64,9 +67,30 @@
 
 - (void) addTrendingTab {
     
-    trendingVC = [[TrendingTabViewController alloc] init];
+    /*trendingVC = [[TrendingTabViewController alloc] init];
     trendingVC.title = TRENDING_TITLE;
-    [self addNavigationBar:trendingVC];
+    [self addNavigationBar:trendingVC];*/
+    
+    XHTwitterPaggingViewer *twitterPaggingViewer = [[XHTwitterPaggingViewer alloc] init];
+    
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    
+    trendingVC = [[TrendingTabViewController alloc] init];
+    trendingVC.title = TRENDING_HOT_TITLE;
+    //trendingVC.isMainViewController = YES;
+    //trendingVC.showNew = YES;
+    [viewControllers addObject:trendingVC];
+    
+    hotTagsVC = [[HotTagsViewController alloc] init];
+    hotTagsVC.title = TRENDING_TAGS_TITLE;
+    //trendingVC.showHot = YES;
+    [viewControllers addObject:hotTagsVC];
+    
+    twitterPaggingViewer.viewControllers = viewControllers;
+    
+    twitterPaggingViewer.title = TRENDING_TITLE;
+    
+    [self addNavigationBar:twitterPaggingViewer];
 }
 
 - (void) addMeTab {
@@ -78,9 +102,30 @@
 
 - (void) addHomeTab {
     
+    XHTwitterPaggingViewer *twitterPaggingViewer = [[XHTwitterPaggingViewer alloc] init];
+    
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+    
     home = [[HomeTab alloc] init];
-    home.title = HOME_TITLE;
-    [self addNavigationBar:home];
+    home.title = HOME_NEW_TITLE;
+    home.isMainViewController = YES;
+    home.showNew = YES;
+    [viewControllers addObject:home];
+    
+    home = [[HomeTab alloc] init];
+    home.title = HOME_HOT_TITLE;
+    home.showHot = YES;
+    [viewControllers addObject:home];
+    
+    twitterPaggingViewer.viewControllers = viewControllers;
+    
+    twitterPaggingViewer.title = HOME_TITLE;
+    
+    twitterPaggingViewer.addPostButton = YES;
+    
+    twitterPaggingViewer.addSearchButton = YES;
+    
+    [self addNavigationBar:twitterPaggingViewer];
 }
 
 - (void) addNavigationBar:(UIViewController*)view {

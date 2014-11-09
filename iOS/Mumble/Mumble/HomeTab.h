@@ -13,4 +13,10 @@
 
 @interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
+@property BOOL isMainViewController;
+@property BOOL showHot;
+@property BOOL showNew;
+
+- (void) postMessage;
+
 @end

@@ -28,6 +28,8 @@
 
 #define POPULAR_TAG_LIMIT 1000
 
+#define TRENDING_TAG_LIMIT 10000
+
 #define MUMBLE_MAX_NUMBER_OF_LINES 5
 
 #define MAX_MUMBLES_ONSCREEN 150
@@ -43,15 +45,21 @@
 // Tab Titles
 
 #define TRENDING_TITLE @"Trending"
-#define TRENDING_TAB_TITLE @"Hot"
+#define TRENDING_HOT_TITLE @"What's Hot"
+#define TRENDING_TAGS_TITLE @"Hot Tags"
 
 #define ME_TITLE @"Me"
 #define ME_TAB_TITLE @"Me"
 
-#define HOME_TITLE @"Home"
-#define HOME_TAB_TITLE @"New"
+#define HOME_TITLE @"Near Me"
+#define HOME_NEW_TITLE @"New"
+#define HOME_HOT_TITLE @"Hot"
 
 // Notifications
+
+#define HOME_INDEX 0
+#define TRENDING_INDEX 1
+#define ME_INDEX 2
 
 #define REFRESH_TABLEVIEW @"RefreshTableView"
 
