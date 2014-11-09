@@ -86,25 +86,6 @@
     [locationManager startUpdatingLocation];
 }
 
-- (void) createSearchBar {
-    
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,0,0)];
-    searchBar.delegate = self;
-    
-    searchBar.placeholder = SEARCH_BAR_PLACEHOLDER;
-    searchBar.showsCancelButton = YES;
-    
-    searchBar.hidden = YES;
-    
-    searchBarController = [[UISearchDisplayController alloc]
-                           initWithSearchBar:searchBar
-                           contentsController:self];
-    
-    searchBarController.delegate = self;
-    searchBarController.searchResultsDataSource = self;
-    searchBarController.searchResultsDelegate = self;
-}
-
 - (void) initiateCoreLocation {
     
     locationManager = [[CLLocationManager alloc] init];
@@ -205,35 +186,57 @@
     [self presentViewController:post animated:YES completion:nil];
 }
 
+- (void) createSearchBar {
+    
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    searchBar.delegate = self;
+    
+    searchBar.placeholder = SEARCH_BAR_PLACEHOLDER;
+    searchBar.showsCancelButton = YES;
+    
+    searchBar.hidden = YES;
+    
+    searchBarController = [[UISearchDisplayController alloc]
+                           initWithSearchBar:searchBar
+                           contentsController:self];
+    
+    searchBarController.delegate = self;
+    searchBarController.searchResultsDataSource = self;
+    searchBarController.searchResultsDelegate = self;
+}
+
 - (void) searchLocation {
+    
+    [self expand];
     
     searchBar.hidden = NO;
     
+    //[self.view addSubview:searchBar];
     tableView.tableHeaderView = searchBar;
     
-    self.navigationController.navigationBarHidden = YES;
+    //self.navigationController.navigationBarHidden = YES;
     
     searchResults = [[NSArray alloc] init];
     
     [searchBarController setActive:YES animated:YES];
     [searchBar becomeFirstResponder];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)theSearchBar {
     
-    [self expand];
+    [self contract];
+    
+    searchBar.hidden = YES;
+    //self.navigationController.navigationBarHidden = NO;
+    
+    tableView.tableHeaderView = NULL;
+    searchResults = [[NSArray alloc] init];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     
     [self searchBarCancelButtonClicked:searchBar];
-}
-
-- (void) searchBarCancelButtonClicked:(UISearchBar *)theSearchBar {
-    
-    searchBar.hidden = YES;
-    self.navigationController.navigationBarHidden = NO;
-    
-    tableView.tableHeaderView = NULL;
-    searchResults = [[NSArray alloc] init];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {

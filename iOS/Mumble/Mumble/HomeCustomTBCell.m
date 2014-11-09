@@ -81,11 +81,14 @@
     [heartImg setHitTestEdgeInsets:UIEdgeInsetsMake(-20, -20, -20, -20)];
     [self.contentView addSubview:heartImg];
     
-    if ([likedMumbles containsObject:mumble.objectId]) {
+    if ([likedMumbles containsObject:mumble.objectId] && mumble.likes > 0) {
         
         heartImg.selected = YES;
+        
+    } else if (mumble.likes <= 0) {
+        
+        [likedMumbles removeObject:mumble.objectId];
     }
-
     
     heartLabel = [[UILabel alloc] init];
     heartLabel.textAlignment = NSTextAlignmentLeft;
