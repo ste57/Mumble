@@ -50,7 +50,7 @@
     
     CGRect window = [[UIScreen mainScreen] bounds];
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height - 20) style:UITableViewStylePlain];
     
     tableView.delegate = self;
     
@@ -75,67 +75,79 @@
 
 - (void) addRefreshButton {
     
-    if (!refreshControl) {
+    if ([CLLocationManager locationServicesEnabled]) {
         
-        refreshControl = [[UIRefreshControl alloc] init];
-        
-        [refreshControl addTarget:self action:@selector(retrieveMumbleData) forControlEvents:UIControlEventValueChanged];
-        
-        [tableView addSubview:refreshControl];
+        if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
+            
+            if (!refreshControl) {
+                
+                refreshControl = [[UIRefreshControl alloc] init];
+                
+                [refreshControl addTarget:self action:@selector(retrieveMumbleData) forControlEvents:UIControlEventValueChanged];
+                
+                [tableView addSubview:refreshControl];
+            }
+        }
     }
 }
 
 - (void) retrieveMumbleData {
     
-    PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
-    
-    [query setLimit:TRENDING_TAG_LIMIT];
-    
-    [query selectKeys:@[MUMBLE_DATA_TAGS]];
-    
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-    
-    trendingArray = [[NSArray alloc] init];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    if ([CLLocationManager locationServicesEnabled]) {
         
-        for (PFObject *object in objects) {
+        if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
             
-            [array addObjectsFromArray:object[MUMBLE_DATA_TAGS]];
+            PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
+            
+            [query setLimit:TRENDING_TAG_LIMIT];
+            
+            [query selectKeys:@[MUMBLE_DATA_TAGS]];
+            
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            
+            NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+            
+            trendingArray = [[NSArray alloc] init];
+            
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                
+                for (PFObject *object in objects) {
+                    
+                    [array addObjectsFromArray:object[MUMBLE_DATA_TAGS]];
+                }
+                
+                for (NSString *string in array) {
+                    
+                    if ([dictionary objectForKey:string]) {
+                        
+                        NSInteger number = [[dictionary objectForKey:string] integerValue];
+                        number++;
+                        [dictionary setObject:[NSNumber numberWithInteger:number] forKey:string];
+                        
+                    } else {
+                        
+                        [dictionary setValue:[NSNumber numberWithInteger:0] forKey:string];
+                    }
+                }
+                
+                trendingArray = [dictionary keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+                    
+                    if ([obj1 integerValue] > [obj2 integerValue]) {
+                        
+                        return (NSComparisonResult)NSOrderedAscending;
+                    }
+                    if ([obj1 integerValue] < [obj2 integerValue]) {
+                        
+                        return (NSComparisonResult)NSOrderedDescending;
+                    }
+                    
+                    return (NSComparisonResult)NSOrderedSame;
+                }];
+                
+                [self refreshTable];
+            }];
         }
-        
-        for (NSString *string in array) {
-            
-            if ([dictionary objectForKey:string]) {
-                
-                NSInteger number = [[dictionary objectForKey:string] integerValue];
-                number++;
-                [dictionary setObject:[NSNumber numberWithInteger:number] forKey:string];
-                
-            } else {
-                
-                [dictionary setValue:[NSNumber numberWithInteger:0] forKey:string];
-            }
-        }
-        
-        trendingArray = [dictionary keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
-            
-            if ([obj1 integerValue] > [obj2 integerValue]) {
-                
-                return (NSComparisonResult)NSOrderedAscending;
-            }
-            if ([obj1 integerValue] < [obj2 integerValue]) {
-                
-                return (NSComparisonResult)NSOrderedDescending;
-            }
-            
-            return (NSComparisonResult)NSOrderedSame;
-        }];
-        
-        [self refreshTable];
-    }];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {

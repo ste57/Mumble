@@ -140,7 +140,7 @@
     
     CGRect window = [[UIScreen mainScreen] bounds];
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height - 20) style:UITableViewStylePlain];
     
     tableView.delegate = self;
     
@@ -190,6 +190,8 @@
                 mumble.tags = object[MUMBLE_DATA_TAGS];
                 
                 mumble.content = [NSString stringWithFormat:@"%@", object[MUMBLE_DATA_CLASS_CONTENT]];
+                
+                mumble.userID = object[MUMBLE_DATA_USER];
                 
                 CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
                 

@@ -67,6 +67,14 @@
 
 #define TAG_PRESSED @"TagPressed"
 
+#define USER_PREFIX @"user_"
+
+#define MUMBLE_1_LIKE @"Your mumble has been liked!"
+
+#define MUMBLE_5_LIKE @"Your mumble is on 5 likes!"
+
+#define MUMBLE_10_LIKE @"Your mumble is on 10 likes!"
+
 // NSUserDefaults
 
 #define MUMBLES_BY_USER @"MumblesByUser"

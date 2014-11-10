@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSString *createdAt;
+@property (strong, nonatomic) NSString *userID;
 @property (strong, nonatomic) NSArray *tags;
 @property long comments;
 @property long likes;

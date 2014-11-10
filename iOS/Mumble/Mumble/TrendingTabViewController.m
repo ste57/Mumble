@@ -45,7 +45,7 @@
 }
 
 - (void) setNotificationObservers {
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tagPressed:) name:TAG_PRESSED object:nil];
 }
 
@@ -58,7 +58,7 @@
     
     CGRect window = [[UIScreen mainScreen] bounds];
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height) style:UITableViewStylePlain];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, window.size.width, window.size.height - 20) style:UITableViewStylePlain];
     
     tableView.delegate = self;
     
@@ -123,6 +123,8 @@
                 
                 mumble.content = [NSString stringWithFormat:@"%@", object[MUMBLE_DATA_CLASS_CONTENT]];
                 
+                mumble.userID = object[MUMBLE_DATA_USER];
+                
                 /////// calculate mumble height
                 
                 CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
@@ -152,81 +154,31 @@
             [refreshControl endRefreshing];
         }
     }];
-    
-    /* PFQuery *query = [PFQuery queryWithClassName:MUMBLE_DATA_CLASS];
-     
-     [query setLimit:MAX_MUMBLES_ONSCREEN];
-     
-     [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
-     
-     [query orderByDescending:[NSString stringWithFormat:@"createdAt,%@", MUMBLE_DATA_LOCATION]];
-     
-     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-     
-     if (!error) {
-     
-     mumbles = [[NSMutableArray alloc] init];
-     
-     Mumble *mumble;
-     
-     for (PFObject *object in objects) {
-     
-     mumble = [[Mumble alloc] init];
-     
-     mumble.objectId = object.objectId;
-     
-     mumble.tags = object[MUMBLE_DATA_TAGS];
-     
-     mumble.content = [NSString stringWithFormat:@"%@", object[MUMBLE_DATA_CLASS_CONTENT]];
-     
-     /////// calculate mumble height
-     
-     CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
-     
-     CGSize size = [mumble.content boundingRectWithSize: constraint options: NSStringDrawingUsesLineFragmentOrigin
-     attributes: @{ NSFontAttributeName: MUMBLE_CONTENT_TEXT_FONT} context: nil].size;
-     
-     mumble.cellHeight = HOME_TBCELL_DEFAULT_HEIGHT + size.height;
-     
-     //////
-     
-     mumble.createdAt = object.createdAt.timeAgoSinceNow;
-     
-     mumble.likes = [object[MUMBLE_DATA_LIKES] longValue];
-     
-     mumble.comments = [object[MUMBLE_DATA_COMMENTS] longValue];
-     
-     [mumbles addObject:mumble];
-     }
-     
-     [self refreshTable];
-     
-     [refreshControl endRefreshing];
-     
-     } else {
-     
-     [refreshControl endRefreshing];
-     }
-     }];*/
 }
 
 - (void) tagPressed:(NSNotification*)notification {
     
-    if (self.tabBarController.selectedIndex == TRENDING_INDEX) {
+    if ([CLLocationManager locationServicesEnabled]) {
         
-        NSString *tag = [notification object];
-        
-        if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+        if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
             
-            [self contract];
-            
-            TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
-            
-            tagPressedVC.title = tag;
-            
-            tagPressedVC.view.backgroundColor = [UIColor whiteColor];
-            
-            [self.navigationController pushViewController:tagPressedVC animated:YES];
+            if (self.tabBarController.selectedIndex == TRENDING_INDEX) {
+                
+                NSString *tag = [notification object];
+                
+                if (![tag isEqual:[[[self.navigationController viewControllers] lastObject] title]]) {
+                    
+                    [self contract];
+                    
+                    TagPressedViewController *tagPressedVC = [[TagPressedViewController alloc] init];
+                    
+                    tagPressedVC.title = tag;
+                    
+                    tagPressedVC.view.backgroundColor = [UIColor whiteColor];
+                    
+                    [self.navigationController pushViewController:tagPressedVC animated:YES];
+                }
+            }
         }
     }
 }
@@ -237,7 +189,7 @@
     navBarBanner.backgroundColor = NAV_BAR_HEADER_COLOUR;
     
     [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
-
+    
     [self retrieveMumbleData];
 }
 
@@ -311,30 +263,30 @@
 #pragma mark - The Magic!
 
 - (void) expand {
-
-        if(hidden)
-            return;
-        
-        hidden = YES;
-        
-        [self.tabBarController setTabBarHidden:YES
-                                      animated:YES];
-        
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-
+    
+    if(hidden)
+        return;
+    
+    hidden = YES;
+    
+    [self.tabBarController setTabBarHidden:YES
+                                  animated:YES];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 }
 
 - (void) contract {
     
-        if(!hidden)
-            return;
-        
-        hidden = NO;
-        
-        [self.tabBarController setTabBarHidden:NO
-                                      animated:YES];
-        
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if(!hidden)
+        return;
+    
+    hidden = NO;
+    
+    [self.tabBarController setTabBarHidden:NO
+                                  animated:YES];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark -

@@ -11,7 +11,7 @@
 #import "UITabBarController+hidable.h"
 #import "PostMessageViewController.h"
 
-@interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 
 @property BOOL isMainViewController;
 @property BOOL showHot;

@@ -42,7 +42,10 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
 
 @end
 
-@implementation XHTwitterPaggingViewer
+@implementation XHTwitterPaggingViewer {
+    
+    CLLocationManager *locationManager;
+}
 
 @synthesize addPostButton, addSearchButton, viewControllers;
 
@@ -195,28 +198,65 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
     [self setupViews];
     
     [self reloadData];
+    
+    [self initiateCoreLocation];
+    
+    [locationManager startUpdatingLocation];
+}
+
+- (void) initiateCoreLocation {
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+        
+        if ([CLLocationManager locationServicesEnabled]) {
+            
+            if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App Permission Denied"
+                                                                message:@"To re-enable, please go to Settings and turn on Location Services for this app."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+    
+        [locationManager stopUpdatingLocation];
+}
+
+- (void) locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+            
+            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = nil;
+        }
+    }
 }
 
 - (void)setupNavigationBar {
-   /* if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-        [self setAutomaticallyAdjustsScrollViewInsets:NO];
-        
-        // 设置导航条背景颜色，在iOS7才这么用
-        //[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.291 green:0.607 blue:1.000 alpha:1.000]];
-        // 设置导航条的返回按钮或者系统按钮的文字颜色，在iOS7才这么用
-        //[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-        // 设置导航条的title文字颜色，在iOS7才这么用
-        //[[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                            //  [UIColor whiteColor], NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17], NSFontAttributeName, nil]];
 
-    } else {
-        // 设置导航条的背景颜色，在iOS7以下才这么用
-       // [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.291 green:0.607 blue:1.000 alpha:1.000]];
-    }*/
-    
     [self removeBackButtonText];
     
-    [self addNavigationBarItems];
+    if ([CLLocationManager locationServicesEnabled]) {
+        
+        if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied) {
+            
+            [self addNavigationBarItems];
+        }
+    }
     
     self.navigationItem.titleView = self.paggingNavbar;
 }
@@ -233,7 +273,7 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
 }
 
 - (void)addNavigationBarItems {
-    
+     
     if (addPostButton) {
         // Post Message
         UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:[viewControllers objectAtIndex:self.currentPage] action:@selector(postMessage)];

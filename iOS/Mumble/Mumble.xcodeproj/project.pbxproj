@@ -49,6 +49,7 @@
 		DCA63CB31A0A98E20008BA17 /* SLKTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA63CAA1A0A98E20008BA17 /* SLKTextViewController.m */; };
 		DCA63CB41A0A98E20008BA17 /* SLKTypingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA63CAC1A0A98E20008BA17 /* SLKTypingIndicatorView.m */; };
 		DCB5CA9D1A0F1C7900BD07EA /* HotTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB5CA9C1A0F1C7900BD07EA /* HotTagsViewController.m */; };
+		DCB5CAA01A10047300BD07EA /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB5CA9F1A10047300BD07EA /* SearchViewController.m */; };
 		DCCA03D61A05472C0077D7FB /* PostMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCA03D51A05472C0077D7FB /* PostMessageViewController.m */; };
 		DCCA03DA1A055D320077D7FB /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCA03D91A055D320077D7FB /* UIPlaceHolderTextView.m */; };
 		DCDB4A4419F2E1350088FB7D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCDB4A4319F2E1350088FB7D /* Images.xcassets */; };
@@ -146,6 +147,8 @@
 		DCA63CAC1A0A98E20008BA17 /* SLKTypingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLKTypingIndicatorView.m; sourceTree = "<group>"; };
 		DCB5CA9B1A0F1C7900BD07EA /* HotTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotTagsViewController.h; sourceTree = "<group>"; };
 		DCB5CA9C1A0F1C7900BD07EA /* HotTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotTagsViewController.m; sourceTree = "<group>"; };
+		DCB5CA9E1A10047300BD07EA /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		DCB5CA9F1A10047300BD07EA /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		DCCA03D41A05472C0077D7FB /* PostMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostMessageViewController.h; sourceTree = "<group>"; };
 		DCCA03D51A05472C0077D7FB /* PostMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostMessageViewController.m; sourceTree = "<group>"; };
 		DCCA03D81A055D320077D7FB /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 			children = (
 				DC4B822619F2C82A0095D419 /* HomeTab.h */,
 				DC4B822719F2C82A0095D419 /* HomeTab.m */,
+				DCB5CA9E1A10047300BD07EA /* SearchViewController.h */,
+				DCB5CA9F1A10047300BD07EA /* SearchViewController.m */,
 				DCCA03D41A05472C0077D7FB /* PostMessageViewController.h */,
 				DCCA03D51A05472C0077D7FB /* PostMessageViewController.m */,
 				DC6E813119F2F9E500E084AC /* HomeCustomTBCell.h */,
@@ -538,7 +543,7 @@
 				TargetAttributes = {
 					DC838F2319F29BD10077E010 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 49MJRZBUY4;
+						DevelopmentTeam = 7G6SMVTCL3;
 					};
 					DC838F3C19F29BD20077E010 = {
 						CreatedOnToolsVersion = 6.0;
@@ -611,6 +616,7 @@
 				DC61129B1A0ED6F200BC15BC /* XHPaggingNavbar.m in Sources */,
 				DC4B822819F2C82A0095D419 /* HomeTab.m in Sources */,
 				DCA63CB21A0A98E20008BA17 /* SLKTextView.m in Sources */,
+				DCB5CAA01A10047300BD07EA /* SearchViewController.m in Sources */,
 				DC32BAD819FDB7F100B47A73 /* Comment.m in Sources */,
 				DCA63CB31A0A98E20008BA17 /* SLKTextViewController.m in Sources */,
 				DCA63CAF1A0A98E20008BA17 /* UIView+SLKAdditions.m in Sources */,

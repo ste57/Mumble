@@ -33,6 +33,22 @@
     
     [Parse setApplicationId:@"MRakBf8O2WvDEhrv8IHovUEVfbuZeT76XHmOUTQ2"
                   clientKey:@"ii47uvS0KLLkqmBgzzXkGZPw2FBAZejQj92ENKZH"];
+    
+    // Register for Push Notitications, if running iOS 8
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                        UIUserNotificationTypeBadge |
+                                                        UIUserNotificationTypeSound);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                                 categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    } else {
+        // Register for Push Notifications before iOS 8
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                         UIRemoteNotificationTypeAlert |
+                                                         UIRemoteNotificationTypeSound)];
+    }
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -67,28 +83,23 @@
 
 - (void) addTrendingTab {
     
-    /*trendingVC = [[TrendingTabViewController alloc] init];
-    trendingVC.title = TRENDING_TITLE;
-    [self addNavigationBar:trendingVC];*/
-    
     XHTwitterPaggingViewer *twitterPaggingViewer = [[XHTwitterPaggingViewer alloc] init];
     
     NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
     
     trendingVC = [[TrendingTabViewController alloc] init];
     trendingVC.title = TRENDING_HOT_TITLE;
-    //trendingVC.isMainViewController = YES;
-    //trendingVC.showNew = YES;
     [viewControllers addObject:trendingVC];
     
     hotTagsVC = [[HotTagsViewController alloc] init];
     hotTagsVC.title = TRENDING_TAGS_TITLE;
-    //trendingVC.showHot = YES;
     [viewControllers addObject:hotTagsVC];
     
     twitterPaggingViewer.viewControllers = viewControllers;
     
     twitterPaggingViewer.title = TRENDING_TITLE;
+    
+    twitterPaggingViewer.tabBarItem.image = [UIImage imageNamed:@"trendingIcon"];
     
     [self addNavigationBar:twitterPaggingViewer];
 }
@@ -97,6 +108,7 @@
     
     meVC = [[MeTabViewController alloc] init];
     meVC.title = ME_TITLE;
+    meVC.tabBarItem.image = [UIImage imageNamed:@"meIcon"];
     [self addNavigationBar:meVC];
 }
 
@@ -125,6 +137,8 @@
     
     twitterPaggingViewer.addSearchButton = YES;
     
+    twitterPaggingViewer.tabBarItem.image = [UIImage imageNamed:@"nearMeIcon"];
+    
     [self addNavigationBar:twitterPaggingViewer];
 }
 
@@ -137,6 +151,28 @@
     navController.navigationBar.barStyle = UIBarStyleBlack;
     
     [tabArray addObject:navController];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    
+    NSString *user = [NSString stringWithFormat:@"%@%@", USER_PREFIX, [[NSUserDefaults standardUserDefaults] objectForKey:USERID]];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:USERID]) {
+        
+        currentInstallation.channels = @[ @"global", user];
+        
+    } else {
+        
+        currentInstallation.channels = @[ @"global", ];
+    }
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
