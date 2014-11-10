@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Comment.h"
 
 @interface CommentsTableViewCell : UITableViewCell
+
+@property (nonatomic,strong) Comment *comment;
+
+- (void) setLabels;
+
+- (void) createLabels;
 
 @end

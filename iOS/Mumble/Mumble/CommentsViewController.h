@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Mumble.h"
 #import "SLKTextViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface CommentsViewController : SLKTextViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property Mumble *mumble;
+
+- (void)shareButtonClicked;
+
+- (void) pushCommentsCount;
 
 @end

@@ -281,6 +281,8 @@
         
         [mumble setObject:[[NSUserDefaults standardUserDefaults] objectForKey:USERID] forKey:MUMBLE_DATA_USER];
         
+        [mumble setObject:[NSNumber numberWithInt:0] forKey:MUMBLE_DATA_FLAG];
+        
         [mumble saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             NSMutableArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:MUMBLES_BY_USER];

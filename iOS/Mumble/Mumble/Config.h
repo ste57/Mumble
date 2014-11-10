@@ -75,19 +75,28 @@
 
 #define MUMBLE_10_LIKE @"Your mumble is on 10 likes!"
 
+#define MUMBLE_COMMENT_PUSH @"Someone replied to your mumble"
+
 // NSUserDefaults
 
 #define MUMBLES_BY_USER @"MumblesByUser"
 
 #define MUMBLES_LIKED_BY_USER @"MumblesLikedByUser"
 
+#define COMMENTS_LIKED_BY_USER @"CommentsLikedByUser"
+
 #define USERID @"UserID"
+
+#define LIKES @"LikesCount"
+
+#define FLAG_ARRAY @"flaggedIDs"
 
 // Parse Info
 
 #define USER_DATA_CLASS @"User"
 #define USER_DATA_LOCATION @"lastLocation"
 
+#define MUMBLE_DATA_OBJECTID @"objectId"
 #define MUMBLE_DATA_CLASS @"Mumble"
 #define MUMBLE_DATA_CLASS_CONTENT @"content"
 #define MUMBLE_DATA_TAGS @"tags"
@@ -96,9 +105,15 @@
 #define MUMBLE_DATA_COMMENTS @"commentsCount"
 #define MUMBLE_DATA_LOCATION @"userLocation"
 #define MUMBLE_DATA_PHONE_TYPE @"msgLocation"
+#define MUMBLE_DATA_FLAG @"flagCount"
+#define MUMBLE_FLAG_FOR_DELETE 4
 
 #define LIKES_DATA_CLASS @"Likes"
 #define LIKES_MUMBLE_ID @"mumbleID"
 
 #define COMMENTS_DATA_CLASS @"Comments"
+#define COMMENTS_DATA_CONTENT @"content"
+#define COMMENTS_DATA_LIKES @"likesCount"
 #define COMMENTS_MUMBLE_ID @"mumbleID"
+#define COMMENTS_USER @"userID"
+

@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "rising9 2.png"
+      "filename" : "star.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "rising9 2@2x.png"
+      "filename" : "star@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "rising9 2@3x.png"
+      "filename" : "star@3x.png"
     }
   ],
   "info" : {

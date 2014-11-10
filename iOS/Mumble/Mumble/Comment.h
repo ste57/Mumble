@@ -12,5 +12,8 @@
 
 @property (strong, nonatomic) NSString *objectId;
 @property (strong, nonatomic) NSString *content;
+@property (strong, nonatomic) NSString *createdAt;
+@property double cellHeight;
+@property long likes;
 
 @end

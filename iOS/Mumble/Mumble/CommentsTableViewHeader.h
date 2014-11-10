@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "Mumble.h"
+#import "CommentsViewController.h"
 
 @interface CommentsTableViewHeader : UIView
 
-@property (nonatomic) UILabel *locationLabel;
 @property (nonatomic) UILabel *timeLabel;
 @property (nonatomic) UITextView *postLabel;
 @property (nonatomic) UIButton *heartImg;
 @property (nonatomic) UILabel *heartLabel;
 @property (nonatomic) Mumble *mumble;
+@property (nonatomic) UILabel *shareLabel;
+@property (nonatomic, weak) CommentsViewController *delegate;
 
 - (void) setLabelNames;
+
+- (void) createLabels;
 
 @end

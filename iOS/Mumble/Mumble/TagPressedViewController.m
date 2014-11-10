@@ -43,12 +43,12 @@
     [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
 }
 
-- (void) viewDidDisappear:(BOOL)animated {
+- (void) viewWillDisappear:(BOOL)animated {
     
     [navBarBanner removeFromSuperview];
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     
     [super viewDidLoad];
     
@@ -171,6 +171,8 @@
     
     [query setLimit:MAX_MUMBLES_ONSCREEN];
     
+    [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+    
     [query whereKey:MUMBLE_DATA_TAGS equalTo:self.title];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -192,6 +194,8 @@
                 mumble.content = [NSString stringWithFormat:@"%@", object[MUMBLE_DATA_CLASS_CONTENT]];
                 
                 mumble.userID = object[MUMBLE_DATA_USER];
+                
+                mumble.shortCreatedAt = object.createdAt.shortTimeAgoSinceNow;
                 
                 CGSize constraint = CGSizeMake((self.view.frame.size.width - (CELL_PADDING*2)), 20000.0f);
                 

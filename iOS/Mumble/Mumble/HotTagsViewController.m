@@ -33,6 +33,8 @@
     [self removeBackButtonText];
     
     [self createTableView];
+    
+    [self retrieveMumbleData];
 }
 
 - (void) refreshTable {
@@ -145,10 +147,16 @@
                 }];
                 
                 [self refreshTable];
+                [refreshControl endRefreshing];
             }];
         }
     }
 }
+
+/*- (void) viewWillAppear:(BOOL)animated {
+    
+    [self retrieveMumbleData];
+}*/
 
 - (void) viewDidAppear:(BOOL)animated {
     
@@ -157,7 +165,6 @@
     
     [[UIApplication sharedApplication].keyWindow addSubview:navBarBanner];
     
-    [self retrieveMumbleData];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {

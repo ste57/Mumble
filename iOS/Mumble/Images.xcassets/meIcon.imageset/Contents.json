@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "mumble + Mumble 3.png"
+      "filename" : "meicon.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "mumble + Mumble 3@2x.png"
+      "filename" : "meicon@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "mumble + Mumble 3@3x.png"
+      "filename" : "meicon@3x.png"
     }
   ],
   "info" : {

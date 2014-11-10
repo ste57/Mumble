@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MeTabViewController : UIViewController
+@interface MeTabViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property UITableView *tableView;
+
 
 @end

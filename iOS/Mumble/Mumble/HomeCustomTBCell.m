@@ -76,7 +76,7 @@
     [heartImg setBackgroundImage:[UIImage imageNamed:@"heartLiked"] forState:UIControlStateSelected];
     [heartImg setTranslatesAutoresizingMaskIntoConstraints:false];
     heartImg.adjustsImageWhenHighlighted = NO;
-    [heartImg setTintColor:[UIColor whiteColor]];
+    [heartImg setTintColor:[UIColor clearColor]];
     heartImg.alpha = overallOpacity;
     [heartImg setHitTestEdgeInsets:UIEdgeInsetsMake(-20, -20, -20, -20)];
     [self.contentView addSubview:heartImg];
@@ -122,8 +122,8 @@
     
     if (mumble.comments < 1) {
         
-        //commentsLabel.alpha = 0;
-        //commentImg.alpha = 0;
+        commentsLabel.alpha = 0;
+        commentImg.alpha = 0;
     }
     
     NSDictionary *views = @{@"content": contentLabel,
@@ -223,26 +223,29 @@
             
             [mumblePFObject saveEventually:^(BOOL succeeded, NSError *error) {
                 
-                if (mumble.likes == 1) {
+                if (![[[NSUserDefaults standardUserDefaults] objectForKey:USERID] isEqualToString:mumble.userID]) {
                     
-                    PFPush *push = [[PFPush alloc] init];
-                    [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
-                    [push setMessage:MUMBLE_1_LIKE];
-                    [push sendPushInBackground];
-                    
-                } else if (mumble.likes == 5) {
-                    
-                    PFPush *push = [[PFPush alloc] init];
-                    [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
-                    [push setMessage:MUMBLE_5_LIKE];
-                    [push sendPushInBackground];
-                    
-                } else if (mumble.likes == 10) {
-                    
-                    PFPush *push = [[PFPush alloc] init];
-                    [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
-                    [push setMessage:MUMBLE_10_LIKE];
-                    [push sendPushInBackground];
+                    if (mumble.likes == 1) {
+                        
+                        PFPush *push = [[PFPush alloc] init];
+                        [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
+                        [push setMessage:MUMBLE_1_LIKE];
+                        [push sendPushInBackground];
+                        
+                    } else if (mumble.likes == 5) {
+                        
+                        PFPush *push = [[PFPush alloc] init];
+                        [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
+                        [push setMessage:MUMBLE_5_LIKE];
+                        [push sendPushInBackground];
+                        
+                    } else if (mumble.likes == 10) {
+                        
+                        PFPush *push = [[PFPush alloc] init];
+                        [push setChannel:[NSString stringWithFormat:@"%@%@", USER_PREFIX, mumble.userID]];
+                        [push setMessage:MUMBLE_10_LIKE];
+                        [push sendPushInBackground];
+                    }
                 }
                 
             }];

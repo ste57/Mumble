@@ -160,15 +160,18 @@
 
 - (void) showComments:(NSNotification*)notification {
     
-    [self contract];
-    
-    Mumble *mumble = [notification object];
-    
-    CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
-    
-    commentsVC.mumble = mumble;
-    
-    [self.navigationController pushViewController:commentsVC animated:YES];
+    if (self.tabBarController.selectedIndex == HOME_INDEX && isMainViewController) {
+        
+        [self contract];
+        
+        Mumble *mumble = [notification object];
+        
+        CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
+        
+        commentsVC.mumble = mumble;
+        
+        [self.navigationController pushViewController:commentsVC animated:YES];
+    }
 }
 
 - (void) addNavigationBarItems {
@@ -246,6 +249,8 @@
             
             [query setLimit:MAX_MUMBLES_ONSCREEN];
             
+            [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+            
             if (showNew) {
                 
                 [query whereKey:MUMBLE_DATA_LOCATION nearGeoPoint:userGeoPoint];
@@ -291,6 +296,8 @@
                         //////
                         
                         mumble.createdAt = object.createdAt.timeAgoSinceNow;
+                        
+                        mumble.shortCreatedAt = object.createdAt.shortTimeAgoSinceNow;
                         
                         mumble.likes = [object[MUMBLE_DATA_LIKES] longValue];
                         
@@ -404,6 +411,8 @@
     CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
     
     commentsVC.mumble = mumble;
+    
+    [commentsVC pushCommentsCount];
     
     [self.navigationController pushViewController:commentsVC animated:YES];
 }

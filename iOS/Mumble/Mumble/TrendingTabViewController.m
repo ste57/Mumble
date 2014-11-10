@@ -105,6 +105,8 @@
     
     [query whereKey:@"createdAt" greaterThan:date];
     
+    [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
@@ -118,6 +120,8 @@
                 mumble = [[Mumble alloc] init];
                 
                 mumble.objectId = object.objectId;
+                
+                mumble.shortCreatedAt = object.createdAt.shortTimeAgoSinceNow;
                 
                 mumble.tags = object[MUMBLE_DATA_TAGS];
                 

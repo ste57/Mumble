@@ -46,6 +46,8 @@
     searchBarController.searchResultsDelegate = self;
     
     searchBar.translucent = NO;
+    
+    [searchBarController searchResultsTableView].separatorColor = [UIColor colorWithRed:0.875 green:0.875 blue:0.875 alpha:0.7];
 }
 
 - (void) showSearchBar {
