@@ -105,7 +105,7 @@
     
     [query orderByDescending:[NSString stringWithFormat:@"createdAt"]];
     
-    [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+    //[query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
     
     [query whereKey:MUMBLE_DATA_OBJECTID containedIn:[[NSUserDefaults standardUserDefaults] objectForKey:MUMBLES_LIKED_BY_USER]];
     
@@ -251,6 +251,8 @@
     CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
     
     commentsVC.mumble = mumble;
+    
+    [commentsVC pushCommentsCount];
     
     [self.navigationController pushViewController:commentsVC animated:YES];
 }

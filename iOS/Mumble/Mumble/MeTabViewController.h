@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface MeTabViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MeTabViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property UITableView *tableView;
 

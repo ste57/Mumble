@@ -10,8 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "UITabBarController+hidable.h"
 #import "PostMessageViewController.h"
+#import "GAITrackedViewController.h"
 
-@interface HomeTab : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface HomeTab : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 
 @property BOOL isMainViewController;
 @property BOOL showHot;

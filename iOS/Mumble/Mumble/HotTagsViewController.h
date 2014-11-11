@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface HotTagsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface HotTagsViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end

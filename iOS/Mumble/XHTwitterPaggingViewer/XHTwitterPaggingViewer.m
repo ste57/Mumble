@@ -187,6 +187,8 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.screenName = @"Near By";
 }
 
 - (void)viewDidLoad {

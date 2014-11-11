@@ -211,6 +211,20 @@
     [self presentViewController:post animated:YES completion:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    if (isMainViewController) {
+        
+        self.screenName = @"About Screen";
+        
+    } else {
+        
+        self.screenName = @"Hot";
+    }
+}
+
 - (void) viewDidAppear:(BOOL)animated {
     
     if (isMainViewController) {
@@ -249,7 +263,7 @@
             
             [query setLimit:MAX_MUMBLES_ONSCREEN];
             
-            [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+            //[query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
             
             if (showNew) {
                 

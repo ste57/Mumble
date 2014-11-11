@@ -153,10 +153,11 @@
     }
 }
 
-/*- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [self retrieveMumbleData];
-}*/
+    self.screenName = @"Hot Tags";
+}
 
 - (void) viewDidAppear:(BOOL)animated {
     

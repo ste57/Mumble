@@ -171,7 +171,7 @@
     
     [query setLimit:MAX_MUMBLES_ONSCREEN];
     
-    [query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
+    //[query whereKey:MUMBLE_DATA_FLAG lessThan:@(MUMBLE_FLAG_FOR_DELETE)];
     
     [query whereKey:MUMBLE_DATA_TAGS equalTo:self.title];
     
@@ -278,6 +278,8 @@
     CommentsViewController *commentsVC = [[CommentsViewController alloc] init];
     
     commentsVC.mumble = mumble;
+    
+    [commentsVC pushCommentsCount];
     
     [self.navigationController pushViewController:commentsVC animated:YES];
 }

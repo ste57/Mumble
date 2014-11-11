@@ -14,6 +14,7 @@
 #import "Config.h"
 #import "XHTwitterPaggingViewer.h"
 #import "HotTagsViewController.h"
+#import "GAI.h"
 
 @implementation AppDelegate {
     
@@ -49,7 +50,7 @@
                                                          UIRemoteNotificationTypeAlert |
                                                          UIRemoteNotificationTypeSound)];
     }
-
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -77,6 +78,18 @@
     [self.window setRootViewController:tabBar];
     
     [self.window makeKeyAndVisible];
+    
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-56577382-1"];
     
     return YES;
 }

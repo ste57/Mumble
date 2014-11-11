@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "GAITrackedViewController.h"
 
 typedef void(^XHDidChangedPageBlock)(NSInteger currentPage, NSString *title);
 
-@interface XHTwitterPaggingViewer : UIViewController <CLLocationManagerDelegate>
+@interface XHTwitterPaggingViewer : GAITrackedViewController <CLLocationManagerDelegate>
 
 /**
  *  改变页码的回调

@@ -51,6 +51,7 @@ CGFloat screenHeight;
     
     self.navigationController.navigationBarHidden = YES;
     [self retrieveLikes];
+    self.screenName = @"Me";
 }
 
 - (void) retrieveLikes {

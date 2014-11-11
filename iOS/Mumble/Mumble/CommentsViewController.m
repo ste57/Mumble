@@ -319,7 +319,7 @@
     
     [query getObjectInBackgroundWithId:mumble.objectId block:^(PFObject *mumblePFObject, NSError *error) {
         
-        [mumblePFObject setObject:[NSNumber numberWithInt:commentsArray.count] forKey:MUMBLE_DATA_COMMENTS];
+        [mumblePFObject setObject:[NSNumber numberWithLong:commentsArray.count] forKey:MUMBLE_DATA_COMMENTS];
         [mumblePFObject saveInBackground];
     }];
 }

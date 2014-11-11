@@ -15,7 +15,7 @@
 
 @property Mumble *mumble;
 
-- (void)shareButtonClicked;
+- (void) shareButtonClicked;
 
 - (void) pushCommentsCount;
 

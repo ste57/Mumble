@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface TrendingTabViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface TrendingTabViewController : GAITrackedViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end
